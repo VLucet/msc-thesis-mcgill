@@ -1,18 +1,19 @@
-\documentclass[12pt,Bold,letterpaper,TexShade]{mcgilletdclass}
+\documentclass[12pt,Bold,TexShade]{mcgilletdclass}
 \usepackage{graphicx}
 \usepackage{times}
 \usepackage{subfig}
 \usepackage{longtable}
 \usepackage{natbib}
 \usepackage{float}
-\usepackage{multirow}
-\usepackage{adjustbox}
 \usepackage{setspace}
 \usepackage{multirow}
 \usepackage{adjustbox}
 \usepackage{enumitem}
 \usepackage{rotating}
 \usepackage{lipsum,lineno} % for placeholder text
+
+% Bib style
+\bibliographystyle{unsrt}
 
 % remove section numbering without using section* (keeps in TOC)
 \setcounter{secnumdepth}{1}
@@ -54,17 +55,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%       Define student-specific info
 
-\SetTitle{\huge{EXAMPLE THESIS TEMPLATE \\ FOR MCGILL UNIVERSITY}}%
+\SetTitle{\huge{Title TBD}}%
 
-\SetAuthor{\large{\textit{A. Student}}}%
-\SetDegreeType{Doctor of Philosophy\vspace{0cm}}%
+\SetAuthor{\large{\textit{Valentin Lucet}}}%
+\SetDegreeType{Master of Science\vspace{0cm}}%
 \SetDepartment{Department of Biology\vspace{-2.1cm}}%
 \SetUniversity{McGill University}%
 \SetUniversityAddr{Montreal, Quebec}%
-\SetThesisDate{2018-11-20}%
-\SetRequirements{A thesis submitted to McGill University in partial fulfillment \\of the requirements of the degree of Doctor of Philosophy}%
+\SetThesisDate{2020-08-15}%
+\SetRequirements{A thesis submitted to McGill University in partial fulfillment \\of the requirements of the degree of Master of Science}%
 
-\SetCopyright{\textcopyright A. Student, 2018 \\ All rights reserved}%
+\SetCopyright{\textcopyright V. Lucet, 2020 \\ All rights reserved}%
 
 %% Input any special commands below
 \listfiles
@@ -85,14 +86,14 @@
 %%         Dedication                         %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \SetDedicationName{{Dedication}}%
-\SetDedicationText{To Oscar}%
+\SetDedicationText{To be completed.}%
 \Dedication%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%         English Abstract                        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \SetAbstractEnName{{Abstract}}%
-\SetAbstractEnText{\lipsum[66]}
+\SetAbstractEnText{To be completed.}
 
 \AbstractEn%
 
@@ -100,7 +101,7 @@
 %%         French Abstract                         %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \SetAbstractFrName{{Abr\'{e}g\'{e}}}%
-\SetAbstractFrText{\lipsum[66]}%
+\SetAbstractFrText{To be completed.}%
 \AbstractFr%
 
 
@@ -111,30 +112,30 @@
 % Among other acknowledgements, the student is required to declare the extent to which assistance (paid or unpaid) has been given by members of staff, fellow students, research assistants, technicians, or others in the collection of materials and data, the design and construction of apparatus, the performance of experiments, the analysis of data, and the preparation of the thesis (including editorial help).
 % In addition, it is appropriate to recognize the supervision and advice given by the thesis supervisor(s) and advisors.
 \SetAcknowledgeText{%
-\noindent \lipsum[66]
+\noindent To be completed.
 }%
 \Acknowledge%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%        Contribution to original knowledge      %%
+%%        Contribution to original knowledge      %% => IS IT NEEDED FOR A MSC
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\SetContribKnowledgeName{{Contribution to Original Knowledge}}
-\SetContribKnowledgeText{\lipsum[66]
-}%
-\ContribKnowledge%
+%\SetContribKnowledgeName{{Contribution to Original Knowledge}}
+%\SetContribKnowledgeText{\lipsum[66]
+%}%
+%\ContribKnowledge%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%       THESIS FORMAT AND STYLE       %%
+%%       THESIS FORMAT AND STYLE       %% => UNSURE SO FAR
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\SetLinkName{{Thesis Format}}%
-\SetLinkText{This thesis is written in a manuscript-based format. Throughout I use the Chicago citation style. 
-\\
-\\
-\textbf{Chapter 1:} Student, A. Supervisor, B. (2013), My First Chapter Title \textit{Journal of Ecographic Informatics} 10 (1), 878887.
-\\
-\\
-}
-\Link%
+%\SetLinkName{{Thesis Format}}%
+%\SetLinkText{This thesis is written in a manuscript-based format. Throughout I use the Chicago citation style. 
+%\\
+%\\
+%\textbf{Chapter 1:} Student, A. Supervisor, B. (2013), My First Chapter Title \textit{Journal of %Ecographic Informatics} 10 (1), 878887.
+%\\
+%\\
+%}
+%\Link%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        Contribution of Authors                 %%
@@ -152,9 +153,12 @@ thesis.
 I wrote the manuscript with input from my supervisor.
 \\
 \\
+\textbf{Chapter 2:}
+I wrote the manuscript with input from my supervisor.
+\\
+\\
 }%
 \ContribAuthors%
-
 \listoffigures %
 \listoftables %
 
@@ -189,8 +193,10 @@ I wrote the manuscript with input from my supervisor.
 % Introduction
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \SetIntroName{{General Introduction}}
+
 \SetIntroText{%
-Infectious diseases are responsible for severe health burdens in humans, domesticated animals, and wildlife around the globe \citep{Hotez2014}.}%
+To be completed. \citep{Bengis1988}}%
+
 \Intro
 
 %  Chapter I 
@@ -200,22 +206,23 @@ Infectious diseases are responsible for severe health burdens in humans, domesti
 \SetLinkText{In Chapter I, I did this, in Chapter II I did that.}
 \Link
 
+%  Chapter 2 
+\include{chap_2}
+
 % General Discussion
 % \include{discussion}
 \SetLinkName{{General Discussion \& Conclusion}}%
 % In case of a manuscript-based thesis the comprehensive discussion should encompass all of the chapters of the thesis and should not be a repetition of the individual chapters.
-\SetLinkText{\lipsum
+\SetLinkText{To be completed.
 }%
 \Link%
 
-\chapter{Appendix}
+\chapter*{Appendix}
 \include{appendix_1}
 
 \ETDAppendix{References}{
 \bibHeading{}
 \bibliography{mcgilletd}
 }
-\bibliographystyle{chicago}	
 
-}
 \end{document}

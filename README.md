@@ -1,2 +1,3 @@
-# An example template for (McGill) theses 
+## MSc Thesis - McGill University 
 
+From a template by @maxfarrell.
