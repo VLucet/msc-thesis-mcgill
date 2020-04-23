@@ -1,0 +1,14 @@
+# Fdb version 3
+["pdflatex"] 1587665538 "chap_2.tex" "chap_2.pdf" "chap_2" 1587665539
+  "/etc/texmf/web2c/texmf.cnf" 1577042583 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
+  "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1136768653 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
+  "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1562720991 35073 2a40cfca74fcd5e2568b569ccaadf3f1 ""
+  "/usr/share/texmf/web2c/texmf.cnf" 1562720991 35073 2a40cfca74fcd5e2568b569ccaadf3f1 ""
+  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1586967330 4245024 d80b425fa1287171319d45098df528f3 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1586967333 1018218 f43212ab23012ecc776fd70ec7a75618 ""
+  "chap_2.aux" 1587393259 1513 4259c3fbd526183bd223bd5a022a346e ""
+  "chap_2.tex" 1587665534 502 d76f85898cf5d21f04719c5c248a12b9 ""
+  (generated)
+  "chap_2.pdf"
+  "chap_2.log"
