@@ -25,21 +25,133 @@ We predict that our land use change model will simulate an overall decrease in c
 \section{Methods}
 In this section, we explain in detail the workflow for chapter 1. The workflow is divided into three steps: land use change modelling, connectivity modelling and prioritisation. The data and code necessary to reproduce this analysis is available on a github repository, under https://github.com/VLucet/TBD.\\
 
-\subsection{Land Usec Change Modelling}
-To be completed.
-\\
+\subsection{Land Use Change Modelling}
 
 \subsubsection{Background}
-To be completed.
+Land use change modelling is a prolific subfield of land systems science which has spurred a very large diversity of approaches (Dang and Kawasaki 2016, Noszczyk 2018). Beyond the large amount of methods published, the number of applications and software tools that have been built and are available for research purposes is also consequent - although a note must be made on their openness and accessibility, which can vary tremendously (Moulds et al. 2015). It is easy to get lost when choosing the appropriate methods, and papers that compare frameworks and results across tools and methods are rare (Pontius and Malanson 2005, Pontius et al. 2008), even if there has been a noticeable effort in the past decades to bring more order into this apparent chaos, and  more papers are attempting methodological comparisons (Sun and Robinson 2018). Although a full review of land use change modelling methods is beyond the scope of this chapter and this thesis, a few important concepts should be introduced.
+
+A classic, spatially defined land use change model is what can be called a “state change model”, where the landscape is divided in a grid and each grid element (pixel) is assigned a state (Daniel et al. 2016). Most land use change models rely on some sort of remotely sensed land use data in order to be calibrated. Therefore, the list of possible states is derived from the remotely sensed data on which the model will be calibrated. The art of modelling resides in teaching the model how likely each pixel is to transition into another state (or to remain as is), given its current state and given a set of conditions both intrinsic and extrinsic to that pixel. A simple land use change model will assume that the rules of state changes obey markovian laws: i.e. that the next state will always only depend on the current timestep and not previous timesteps. This is a simplification of real landscapes in which the history of the pixel (beyond its present state) can play a large role in the rules governing state change - we will come back to this point later on. That being said, markovian models such as cellular automata have a long history in land use change models and have been shown to deliver accurate results, notably in urban spread modelling (Soares-Filho et al. 2002, Jokar Arsanjani et al. 2013, Iacono et al. 2015). They are yet another application of markov chains, and are fairly easy to set up and to run. Markov chain models represent a phenomenological approach to land use change, because the model learns the rules of transition without requiring an understanding of the mechanisms behind change. The model learns that the state “forest” has a probability of 0.23 to transition into urban if it contains at least 2 urban pixels in a 4 pixel radius (this is an adjacency rule), but it is oblivious to the drivers of land use change.
+
+In comparison to a phenomenological approach, a mechanistic approach to land use change modelling would fully consider that land change happens because of processes of multi-scale decision making, and will attempt to model those processes directly. Agent-Based Models (ABMs) is probably the best example of a mechanistic approach to land use change modelling. ABMs simulate the behavior of individuals in a network of decision processes whose effects are designed to sum up to the observed change (Parker et al. 2002, Filatova et al. 2013). Those models are extremely promising for the future of land use change modelling, but tend to be applied at smaller spatial scales as they are more data intensive. In addition, the modelling process is much more involved: it requires a much deeper understanding of the specific drivers of change in the region.
+
+Therefore, land use change models can be classified according to their level of focus on land use change drivers, from phenomenological (or “top down” if you will) to more mechanistics approaches (“bottom up”). Given the simplicity and ease of use of phenomenological models, and the requirements of mechanistics ones, most approaches to land use change modelling fall somewhat in between the two extremes, and a certain number of “hybrid” approaches has been developed (Jokar Arsanjani et al. 2013, Sun and Robinson 2018). The approach we take in this chapter is, like most land use change models nowadays, not strictly phenomenological and lean on some mechanistic understanding of land use change.
+Such an “in-between” land use change model is set up in two steps: a land use suitability analysis and an allocation algorithm. In a nutshell, the suitability analysis step determines how likely each pixel is to acquire a given state by producing a probability surface, predicted based on spatial data, and the allocation step simulates change over that surface. The simulation (allocation) is often a markov process too, but this time informed by the results of the first step. This markov process can be complexified to include things such as time lags and conditions, allowing to distill some mechanistic flavor into the model.
+
+We choose here to present those two steps as separate because they are methodologically distinct in our model. But it is important to note that recent efforts in land use change modelling have managed to better integrate those steps. Those recent methods can integrate suitability and allocation because the model is capable of learning both processes at the same time. We can cite important work on modelling land use change with machine learning techniques such as Neural Networks (NNs) (Tayyebi 2013) or exploiting the potential of non frequentist statistics in the case of Belief Networks (BBNs). BBNs, like BBNs are promising methods but tend to be applied at smaller spatial scales (Celio et al. 2014).
+
+The two steps framework we just outlined allows to combine the power of markov chains with the flexibility of statistics. Any method can be used to determine the probability surface (although linear and logistic regression techniques are most common), and complex algorithms can be written to determine rules of allocation. The simplicity and flexibility of this framework explains the popularity of common land use change modelling frameworks like the CLUE family of models (Verburg et al. 2002, Verburg and Overmars 2009). CLUE (Conversion of Land Use and its Effects) models are some of the most commonly used models in land system science. In CLUE, the allocation is determined by the local and regional “demand” for each land use. This demand is a latent variable for the complex and multi-scalar social-environmental processes that determine land use change, and which more mechanistics models attempt to simulate.
+
+This approach still requires a lot more information and in some cases a lot more thinking about drivers of change and processes than simple markov processed. It is also a much more difficult modelling task. Because land use change drivers are spatially structured, variables are more often than not spatially autocorrelated, which further complicates the matter. Researchers have been dealing with those issues with varying levels of rigor. The quick and easy way of selecting variables and dealing with autocorrelation is to select variables based on significance in a full linear model, and training the model in a random subset instead of on the fully spatially auto-correlated dataset. The forward selection of variables is now seen as bad practice. In addition, papers rarely show proof that their training subset is fully rid of spatial autocorrelation.
+
+A better way to tackle spatial autocorrelation, would be to use a more involved data partitioning method. CCV (Conventional Cross-Validation) and SCV (Spatial Cross-Validation) have been successfully used in a recent paper comparing land use change modeling techniques, but for vector-based data (Sun and Robinson 2018). However, to our knowledge, there are no clear guidelines on how to conduct such partitioning and fully resolve spatial autocorrelation in land use change models that use suitability analysis for raster-based data. In this chapter, although we do not provide an improvement in this domain, we remain aware of this limitation.\\
+
+\subsubsection{Choice of modeling framework}
+
+In the absence of a solid body of methodological comparisons between statistical frameworks in land use change modelling, it is difficult to decide on the best framework for raster-based models. Our choice of statistical framework was done considering at least three factors: computing time, prediction power and capacity to deal with spatial processes. Computing time is an important factor because fitting models to large datasets can be time consuming. Capacity for dealing with spatial processes varies across methods. For instance, GAMs (generalized additive models) allow the fitting of spatial smoothing functions which can capture spatial structure in the data. Finally, statistical frameworks sit along a continuum that emphasise more or less inference and prediction. A bayesian model will be more easily thought of as a tool for statistical inference, whereas a neural network will be used more with predictive power in mind.
+
+For our land use suitability analysis, we chose Random Forests (RF) as a statistical framework. RFs are a “tree-based machine learning algorithm that generates a “forest” of randomized independent to each other and identically distributed decision trees”. RFs can be easily “grown’ in parallel, which reduces computation time. RFs possess a strong predictive power, but can still provide metrics of variable importance, providing an interesting balance between inference and predictive power.
+
+For the allocation step, we use an advanced cellular automata (CA) modelling tool (markov-chain based) called ST-SIM, a module of the software SyncroSim. St-Sim allows for more complex simulation than a classic CA as it allows for complex neighboring rules with state and age cell tracking. It is also built to handle large datasets and can be scripted to run in parallel. It is important to note that although it is the first time RF is used with ST-SIM, this hybrid modeling framework (coined “RF-CA”) has been used successfully in other land use change modelling projects (Kamusoko and Gamba 2015, Gounaridis et al. 2019). ST-SIM can be customized to function under multiple different types of inputs. The two main inputs are transition probability and transition targets. Readers should refer to Daniel el al. (2016) for an in depth explanation of how ST-SIm functions. In our use case, the transition model was defined in ST-SIM to take only three states: Forest, Urban and Agriculture. All transitions targets were set to 1, but ST-SIM was given targets of transitions based on the amount of land change between 1990 and 2010 (see below for data sources and treatment).
+
+Under such circumstances, ST-SIM takes care of transitioning the amount of land corresponding to those targets, but will do it randomly across the landscape unless it is given adjacency rules and/or spatial multipliers. The RF model was calibrated on a training partition (70\% of the dataset for this timestep) for the timestep of 1990 to 2000. The model is then spatially validated on a test partition (30\% of the dataset), and then temporally validated for the timestep of 2000 to 2010 (100\% of the dataset for this timestep). The probability surfaces produced are then fed as spatial multipliers to ST-SIM, and adjacency rules were arbitrarily defined (based on a 150 meters radius). In addition, transition targets for our ST-Sim land use change model were generated and fed to ST-Sim in order to recreate the trends in land use change from 1990 to 2010, and project them into the future.\\
+
+\subsubsection{Evaluation of model performance and predictions}
+There are a number of ways to evaluate model performance in the context of land use change predictions. We used three differents approaches:
+\begin{itemize}
+  \item We report the $R^{2}$ resulting from the random forest model, as well as variable importance (evaluated as gini impurity score)
+  \item We used a ROC curve with Area Under the Curve (AUC) measurement to compare true observed change with the predicted probabilities of transition. This method is widely used  in land use change modeling.
+  \item We also will perform a second check by comparing the predicted land use probability of change (from all iterations between 1990 and 2010 in our ST-Sim runs). Methods remain to be determined.\\
+\end{itemize}
+
+\subsubsection{Data sources and treatment}
+
+\subsubsection*{Land Use Data}
+For most modelling frameworks, the raw source of land use change data is remote sensing data. Because producing land use change data from remotely sensed imagery was beyond the scope of this thesis, we looked for a curated dataset. Agriculture and Agri-Food Canada produces a dataset of land use in Canada at a 10 years interval and at the resolution of 30 meters. This dataset provides land use data for the years of 1990, 2000, 2010. We found this data product, referred to hereafter as the AAFC data  to be the right fit for our approach for a few reasons.
+
+First, the resolution (30m) is the same as that of previous analysis of the region, which makes our results comparable to previous ones. Resolution is an important property of land use data as these data are raster (grid data). Second, the data production method of the AAFC  data is consistent: the similar methods have been used to produce all three maps at different time points. Consistency in methods is key as it makes the computation of change between time points reliable. Finally, the dataset is rather complete, with low amounts of missing data.
+
+This data is not without limitations: compared to other data products - such as the Quebec Ministry of the Environment land use dataset or the Statistique Quebec land accounting dataset - the AAFC dataset is not very detailed: only a few land use categories are identified, and important information for suitability analysis such as forest age and forest density. This is an issue for which a workaround is described further.  Another limitation is the coordinate reference system (CRS) in which this dataset is available: it is a project in UTM data, which is not the standard CRS used by other data products mentioned above (Ministry of the Environment and Statistique Quebec). This makes direct comparison to those others datasets difficult. Finally, the AAFC data does not differentiate between major and minor roads, which has implications for habitat suitability analysis (see limitations of the model).\\
+
+\subsubsection*{Explanatory variables}
+A diversity of drivers of land-use change can be found in the literature. Some general group of variables can be identified: an important distinction can be made between physical and social-economical variables. Proxy variable for land use change drivers used in this chapter were selected among commonly recognized predictors
+
+A digital elevation model was used to derive elevation data (continuous variable). We used the data product “SRTM 30m” available throughout the Google Earth Engine data portal to generate this variable. This data was already available at a 30 m resolution. We derived a categorical variable “suitability for agriculture” from statistics Canada’s data product “land capacity for agriculture”. This data, available as a vector dataset, was rasterized.
+
+We used the Canadian Census for the years of 1991, 2001 and 2011, provided by Statistics Canada, to extract two variables: population change (1991 -2001) and average income. The data was not available in a spatial format and had to be turned into a spatial object in R before rasterizing. The data was collected at the aggregation level of the denomination area (DAs) or the Enumeration area (EAs) depending on the census year (see table 1 of the appendix for the full description of variables and data sources).\\
+
+\subsubsection*{Data preparation}
+Prior to running the model, the data was pre-processed. The first step consisted in reclassifying the AAFC land use dataset into only 5 categories: the 3 categories of our land use change model and supplemental categories of roads and wetlands.
+
+A second step consisted in the preparation of the explanatory variables. Vector data was rasterized when needed. Lots of extra work was required to prepare the census data. Statistics Canada does not make available a spatial dataset for their Census Data. Therefore, the geometries of DAs and EAs had to be matched with the corresponding line in the Census dataset, based on the unique EA and DA IDs. This was harder than expected and to this day multiple of these have remained unmatched due to errors in the StatsCan dataset. This led to NAs areas. These areas could not be ignored because and had to be imputed. We used mean imputation for lack of a better method but are aware of the large number of issues associated with this practice.
+
+Finally, all variables were standardized prior to running the model. In order to reduce run time as well as memory requirements, we ran the entire simulation at a 90m resolution, which required to aggregate (resample) all of the data in the rasters by a factor of 3. This has implications for habitat suitability (see limitations of the model).\\
+
+\subsubsection{Preliminary analysis of past land use change}
+In an effort to better understand land use patterns in the region, we ran some preliminary analysis on land use change data at the municipality level. Montérégie is made up of 177 different municipalities. We generated land use matrices (amount of each land use category) and land cover transition matrices (1990 to 2010) for each municipality and for the land use categories corresponding to our model. We then performed multivariate analyses by running a first ordination using PCA, and then using Ward clustering. Because municipalities in Monteregie have variable size, the amount of change in each municipality needs to be standardized. The data was normalized prior to the ordination to reflect relative amounts of change in each municipality. We used the vegan package in R to produce such plots.\\
+
+\subsubsection{software tools}
+All work was conducted in the R statistical software. Random forest was run using the ranger package in R. ST-SIM was scripted in R with the help of the rsyncrosim package. St-SIM was run for 100 years with yearly timesteps, for 100 iterations (total: 1000 maps).\\
+
+\subsection{Connectivity modelling}
+
+\subsubsection{Background}
+The simplest way to describe connectivity is as a property of the landscape. Connectivity is the extent to which the landscape facilitates or impedes the movement of organisms. It is a dynamic property: a full definition of connectivity takes into account how it changes across time and space. Connectivity is also a multi-dimensional property. It will manifest itself differently depending on the needs of different species. Because these needs will also vary depending on the time of the year and on their habitat range and preferences, connectivity science is concerned with scale. The scale of a connectivity analysis will often depend on the needs of the species considered. Therefore, from being a dynamic and multi-dimensional property of the landscape, ecological connectivity is also a multi-scalar property. These properties make connectivity modelling interesting, but challenging.
+
+Connectivity modelling is similar to land use change modelling inasmuch as the diversity of methods at the researcher’s disposal is large.  Methods of connectivity modelling are grounded in important concepts, the most important of which is graph theory. Graph theory is the study of graphs, and describes the properties of the elements (edges and vertices) that make up a network. Applying graph theory to a landscape comes down to collapsing that landscape into a network, from which metrics can be computed, and models can be fitted - for instance dispersal models, which makes metapopulation theory another important concept in connectivity. Metapopulation theory describes how populations of a given species in a landscape are connected through dispersal and gene flow, which makes landscape genetics a prolific field for connectivity modelling.
+
+It is important to distinguish structural from functional connectivity. While structural connectivity strictly refers to how animal movement is mediated by features of the landscape in a general way, functional connectivity is based on species preferences for such features. Functional connectivity modelling therefore attempts to model to which extent the landscape meets the need of a specific species or set of species.
+
+There has been a significant push in the recent literature for focusing onto functional connectivity modeling, as it is regarded as a more accurate representation of  the landscape’s capacity to facilitate species movement than simple structural connectivity. However, it is important to recognize that true functional connectivity modelling requires individual animal movement data for fitting and for validation. This type of data is very costly and difficult to acquire, especially when lots of data is needed for a species with a diversity of profile (which is needed to get a full picture of connectivity in a given region). For this reason, much of current functional connectivity modeling, including the methods of this chapter is in fact modeling “potential functional connectivity”, or PFC. PFC models do not necessarily rely on actual movement data like actual functional connectivity models, but are based on others kinds of knowledge of species habitat preferences (for instance expert knowledge of literature reviews). A limitation of PFC modelling is that what the model produces is an informed prediction about potential movement, which is still in need to be verified. Therefore, the quality of the data used for parameterization is extremely important and will determine how much the results can be trusted.
+
+A typical PFC modeling workflow can be broken down to 3 steps: species selection, Habitat suitability modelling and connectivity analysis. The three steps are described below, and the methodology follows closely the methodology of Rayfield et al.\\
+
+\subsubsection{Species Selection}
+Species selection is unchanged from Rayfield et al. The 5 species chosen are presented in table 2.\\
+
+\subsubsection{Habitat Suitability}
+Habitat suitability analysis consists in reclassifying land use data into a resistance surface which is then used to model connectivity at the next step.
+Habitat suitability remains mostly unchanged from Rayfield et al. The main difference is that the AAFC data does not contain information on the forest density and age. To remedy this simulation are ongoing in collaboration with NRC (Natural Resources Canada, Boulanger and Larocque 2020), to obtain future changes in Forest types and age.\\
+
+\subsubsection{Connectivity analysis}
+The method of choice for our connectivity analysis is is a circuit-theory based software called Circuitscape, a free and open software under MIT license developed originally in Python, and now in its 5th version, in Julia.  Circuitscape “borrows algorithms from electronic circuit theory to predict connectivity in heterogeneous landscapes”.
+For each of the maps produced in the first step, Circuitscape was run in two directions (“wall to wall” run): east to west and north to south. The results for each map were added and an average is taken for all iterations at each timestep.\\
+
+\subsubsection{Priorisation}
+\textbf{TBD}
 \\
 
 \section{Results}
-To be completed.
-(Fig. \ref{fig:map}).
-\\
+
+\subsection{Preliminary analysis of land use changes in Monteregie}
+The ordination and clustering of the land use change matrices of the 177 municipalities revealed that Monteregie has 5 profiles and land compositions (see figure 1, 2 and 3):
+\begin{itemize}
+  \item \textbf{Forest - Dominant}: have the lowest level of fragmentation and are dominated by forest
+  \item \textbf{itemForest - Agriculture}: still have a healthy amount of forested areas but fragmentation is much more pronounced.
+  \item \textbf{Agriculture - Dominant}: forested habitat is scarce and most of the remaining forest is classified as “Trees” in the AAFC dataset (forest fragment of less than 1 hectare)
+  \item \textbf{Urban - Medium density}: correspond to the front of the wave of urban sprawling
+  \item \textbf{Urban - High density}: urban cores make up most of the municipality
+\end{itemize}
+
+The ordination of land use change profiles showed that Monteregie has 4 different profiles (see figures (4,  5 and 6):
+\begin{itemize}
+  \item \textbf{Urban Spread / Deforestation}: forest fragmentation is progressing mainly via the growth of urban land (in the west) or villegiatives pressures (in the east)
+  \item \textbf{Urban Spread / Agricultural loss}: agriculture is losing ground to urban land
+  \item \textbf{Agricultural Expansion / Fragmentation}: forest is losing ground to agriculture in those municipalities where forest is still quite present
+  \item \textbf{Agricultural Expansion / Deforestation}: forest is already scare and is being replaced by agricultural lands
+These results show interesting regional trends with a front line of fragmentation and deforestation on each side of the region and along the Richelieu river. \\ % (Fig. \ref{fig:map}).
+\end{itemize}
+
+\subsection{Land Use Change Model}
+
+\subsubsection{Model performance}
+
+\subsubsection{Model predictions}
+
+\subsection{Connectivity Modelling}
+
+\subsection{Priorisation}
+
 \section{Discussion}
-\lipsum[66]
-\\
 
 \newpage
 \section*{Figures \& Tables}
