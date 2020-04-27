@@ -75,20 +75,43 @@ To ensure that this system is used consistently throughout the workshop, each pa
 
 \subsubsection{Weighting system}
 
- The participants were given a total of 6 stickers to cast their vote for the opportunities and obstacles that they thought were most important. They were given a total of 6 stickers: 2 blue (important), 2 yellow (very important) and 2 red (of the first importance).
+ The participants were given a total of 6 stickers to cast their vote for the opportunities and obstacles that they thought were most important. They were given a total of 6 stickers: 2 blue (important), 2 yellow (very important) and 2 red (of the first importance).\\
 
 \subsubsection{Data processing and analysis}
 
 \subsubsection*{Voting: opportunity and challenges}
 
+The data from the opportunities and challenges activity (with post-its), and the weighting of these elements were treated with the following steps:
+\begin{enumerate}
+  \item Each post-it (opportunity or challenge) receives a unique ID.
+  \item A first score is calculated by summing the points for each sticker (each vote)
+  \begin{itemize}
+      \item 1 point for a blue vote
+      \item 2 points for a yellow vote
+      \item 3 points for a red vote
+  \end{itemize}
+  \item This score is then ponderated by multiplying it by the post-it’s diversity score which serves as a measure of consensus
+\begin{itemize}
+\item This diversity score is the inverse simpson index (R package Vegan). The more diverse the group the higher this index is.
+\end{itemize}
+\end{enumerate}
+These steps were carried for each table and the results were treated separately for each table because not all tables had the same potential for diversity. For each table, the 10 post-its with the highest scores were retained, 5 among the post-its that had been placed on a specific area of the map (spatialized) and 5 for those that were not. They can be found in table 1 and 2 (in french) in appendix 1. In addition, a map was produced of the spatialized post-its (see figure 9).
+
 \subsubsection*{Priority areas and links}
+
+The priority areas and links were digitized by hand in QGIS. The smooth tool was used to generalize the trace of each area and corridors (see figure 10 for the final results). It is important to note that those maps  are an approximate representation of reality, as both the drawing during the activity was done with approximation in mind.
 
 \subsubsection{Comparison with models}
 
+We will produce a visual comparison of the two outputs when the model run is complete. Any further comparison method remains to be decided.
+
 \section{Results}
-\lipsum[66]\\
+
 \section{Discussion}
-\lipsum[66]\\
+
+\section{Conclusion}
+
+At this step of completion of the project, there remains many steps with regard to data processing, analysis and presentation that still needs to be answered. Concerning data processing and model proofing, chapter 1 remains very weak in its capacity to evaluate how much the Random Forest - Cellular Automata model can be trusted to provide a good predictor of land use change. This is due in part to the model fitting process which so far relies on practices for which we should perhaps seek an alternative such as mean imputation and raster aggregation. Concerning data analysis and presentation, the main issues are in chapter 2, where the methods of analysis of the workshop data remain to be fully determined. The method for comparing  connectivity outputs with community-produced corridors also remains to be decided. That being said, we are on our way to provide an answer to the problems identified in the problem statement of each chapter.
 
 \newpage
 \section*{Figures \& Tables}
