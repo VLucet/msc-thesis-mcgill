@@ -23,3 +23,9 @@
 *.out
 *.synctex.gz
 thesis.fdb_latexmk
+
+*.xml
+
+*.bcf
+
+thesis-blx.bib
