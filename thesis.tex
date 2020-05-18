@@ -5,12 +5,14 @@
 \usepackage{longtable}
 \usepackage{float}
 \usepackage{setspace}
-\usepackage{multirow}
+\usepackage{multirow} % allows multiple rows in table
 \usepackage{adjustbox}
 \usepackage{enumitem}
 \usepackage{rotating}
 \usepackage{lipsum,lineno} % for placeholder text
-\usepackage{hyperref}
+\usepackage{hyperref} % for hyperlink accross the document
+\usepackage{array} % for sizing of tables
+\usepackage{lscape} % for landscape tables
 
 % Bib style
 % \bibliographystyle{unsrt}
@@ -240,12 +242,15 @@ In this thesis, we show an attempt to remedy the two issues we identified above,
 }%
 \Link%
 
-\chapter*{Appendix}
-\include{appendix_1}
-
-\ETDAppendix{References}{
-\bibHeading{}
-\printbibliography
+% Appendix
+\ETDAppendix{Chapter I Supplementary Material}{
+\input{appendix_1}
 }
+
+%\ETDAppendix{References}{
+%\bibHeading{}
+%\printbibliography
+%}
+\printbibliography[heading=bibintoc, title={Bibliography}]
 
 \end{document}

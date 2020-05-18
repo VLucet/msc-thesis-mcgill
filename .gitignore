@@ -29,3 +29,5 @@ thesis.fdb_latexmk
 *.bcf
 
 thesis-blx.bib
+
+figures/
