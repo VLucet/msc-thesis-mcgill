@@ -7,7 +7,7 @@
 \normalsize{$^{1}$Department of Biology, McGill University}\\
 \section{Abstract}
 
-Space is a finite resource. How we manage and govern space is a reflection of the trade-offs and choices made by people and organizations at different spatial and temporal scales. Those choices primarily determine and regulate land use: if and how space is organized and whether resources are exploited, transformed or conserved. Ecological connectivity, defined as the extent to which the landscape supports the movements of organisms, can be strongly affected by land use. It is an important component of the resilience of populations in heterogeneous and fragmented landscapes. Land use changes such as urban sprawl and agricultural intensification intensify habitat fragmentation and landscape homogenization, leading to the erosion of ecological connectivity. The Monteregie region in southern Quebec, where this work takes place, is experiencing urban growth and sprawl. We present a framework that integrates land-use change and connectivity modelling to forecast future changes in connectivity, using a combination of statistical modelling, MCMC-based simulations, and circuit theory. Models trained on past land use data were used to project future land use changes using different scenarios, and estimate future changes in functional connectivity for 5 different umbrella species. We contrast the past and future impacts of trends in land use (i.e.urbanization, agricultural expansion, and deforestation) and derive conservation priorities for the design of a local network of connected protected areas resilient to future landscape change. We demonstrate the flexibility of a scenario approach in forecasting the range of possible futures for ecological connectivity in the region and show that taking probable landscape changes into account lead to different conservation priorities. We conclude on the importance of considering such changes to produce a resilient network of protected areas and highlight the need for a multi stakeholder approach in the definition of scenarios and conservation priorities.\\
+Ecological connectivity, defined as the extent to which the landscape supports the movements of organisms, can be strongly affected by land use. It is an important component of the resilience of populations in heterogeneous and fragmented landscapes. Land use changes such as urban sprawl and agricultural intensification intensify habitat fragmentation and landscape homogenization, leading to the erosion of ecological connectivity. The Monteregie region in southern Quebec, where this work takes place, is experiencing urban growth and sprawl. We present a framework that integrates land-use change and connectivity modelling to forecast future changes in connectivity, using a combination of statistical modelling, MCMC-based simulations, and circuit theory. Models trained on past land use data were used to project future land use changes using different scenarios, and estimate future changes in functional connectivity for 5 different umbrella species. We contrast the past and future impacts of trends in land use (i.e.urbanization, agricultural expansion, and deforestation) and derive conservation priorities for the design of a local network of connected protected areas resilient to future landscape change. We demonstrate the flexibility of a scenario approach in forecasting the range of possible futures for ecological connectivity in the region and show that taking probable landscape changes into account lead to different conservation priorities. We conclude on the importance of considering such changes to produce a resilient network of protected areas and highlight the need for a multi stakeholder approach in the definition of scenarios and conservation priorities.\\
 
 \section{Introduction}
 \textit{Problem Statement}: Connectivity conservation planning methods does not account for risks associated with future land use change. This can potentially lead to ill-informed conservation plans with low chances of success.
@@ -79,7 +79,7 @@ A diversity of drivers of land-use change can be found in the literature. Some g
 
 A digital elevation model was used to derive elevation data (continuous variable). We used the data product “SRTM 30m” available throughout the Google Earth Engine data portal to generate this variable. This data was already available at a 30 m resolution. We derived a categorical variable “suitability for agriculture” from statistics Canada’s data product “land capacity for agriculture”. This data, available as a vector dataset, was rasterized.
 
-We used the Canadian Census for the years of 1991, 2001 and 2011, provided by Statistics Canada, to extract two variables: population change (1991 -2001) and average income. The data was not available in a spatial format and had to be turned into a spatial object in R before rasterizing. The data was collected at the aggregation level of the denomination area (DAs) or the Enumeration area (EAs) depending on the census year (see table 1 of the appendix for the full description of variables and data sources).\\
+We used the Canadian Census for the years of 1991, 2001 and 2011, provided by Statistics Canada, to extract two variables: population change (1991 -2001) and average income. The data was not available in a spatial format and had to be turned into a spatial object in R before rasterizing. The data was collected at the aggregation level of the denomination area (DAs) or the Enumeration area (EAs) depending on the census year (see table \ref{tab:variables} of the appendix for the full description of variables and data sources).\\
 
 \subsubsection*{Data preparation}
 Prior to running the model, the data was pre-processed. The first step consisted in reclassifying the AAFC land use dataset into only 5 categories: the 3 categories of our land use change model and supplemental categories of roads and wetlands.
@@ -92,7 +92,7 @@ Finally, all variables were standardized prior to running the model. In order to
 In an effort to better understand land use patterns in the region, we ran some preliminary analysis on land use change data at the municipality level. Montérégie is made up of 177 different municipalities. We generated land use matrices (amount of each land use category) and land cover transition matrices (1990 to 2010) for each municipality and for the land use categories corresponding to our model. We then performed multivariate analyses by running a first ordination using PCA, and then using Ward clustering. Because municipalities in Monteregie have variable size, the amount of change in each municipality needs to be standardized. The data was normalized prior to the ordination to reflect relative amounts of change in each municipality. We used the vegan package in R to produce such plots.\\
 
 \subsubsection{software tools}
-All work was conducted in the R statistical software (version 3.6.2 "Dark and Stormy Night". Random forest was run using the ranger package in R. ST-SIM was scripted in R with the help of the rsyncrosim package. St-SIM was run for 100 years with yearly timesteps, for 100 iterations (total: 1000 maps).\\
+All work was conducted in the R statistical software version 3.6.2 "Dark and Stormy Night" \citep[see][]{R}). Random forest was run using the ranger package in R. ST-SIM was scripted in R with the help of the rsyncrosim package. St-SIM was run for 100 years with yearly timesteps, for 100 iterations (total: 1000 maps).\\
 
 \subsection{Connectivity modelling}
 
@@ -108,14 +108,14 @@ There has been a significant push in the recent literature for focusing onto fun
 A typical PFC modelling workflow can be broken down to 3 steps: species selection, Habitat suitability modelling and connectivity analysis. The three steps are described below, and the methodology follows closely the methodology of Rayfield et al.\\
 
 \subsubsection{Species Selection}
-Species selection is unchanged from Rayfield et al. The 5 species chosen are presented in table 2.\\
+Species selection is unchanged from Rayfield et al. The 5 species chosen are presented in table \ref{tab:species}.\\
 
 \subsubsection{Habitat Suitability}
 Habitat suitability analysis consists in reclassifying land use data into a resistance surface which is then used to model connectivity at the next step.
 Habitat suitability remains mostly unchanged from Rayfield et al. The main difference is that the AAFC data does not contain information on the forest density and age. To remedy this simulation are ongoing in collaboration with NRC (Natural Resources Canada, Boulanger and Larocque 2020), to obtain future changes in Forest types and age.\\
 
 \subsubsection{Connectivity analysis}
-The method of choice for our connectivity analysis is is a circuit-theory based software called Circuitscape, a free and open software under MIT license developed originally in Python, and now in its 5th version, in Julia.  Circuitscape “borrows algorithms from electronic circuit theory to predict connectivity in heterogeneous landscapes”.
+The method of choice for our connectivity analysis is a circuit-theory based software called Circuitscape, a free and open software under MIT license developed originally in Python, and now in its 5th version, in Julia \citep{circuitjulia}.  Circuitscape “borrows algorithms from electronic circuit theory to predict connectivity in heterogeneous landscapes”.
 For each of the maps produced in the first step, Circuitscape was run in two directions (“wall to wall” run): east to west and north to south. The results for each map were added and an average is taken for all iterations at each timestep.\\
 
 %\subsubsection{Priorisation}
@@ -125,16 +125,16 @@ For each of the maps produced in the first step, Circuitscape was run in two dir
 \section{Results}
 
 \subsection{Preliminary analysis of land use changes in Monteregie}
-The ordination and clustering of the land use change matrices of the 177 municipalities revealed that Monteregie has 5 profiles and land compositions (see figure 1, 2 and 3):
+The clustering and subsequent ordination of the land use change matrices of the 177 municipalities revealed that Monteregie has 5 profiles and land compositions (see figures \ref{fig:clustervals}, \ref{fig:PCAvals}, and \ref{fig:mapvals}):
 \begin{itemize}
   \item \textbf{Forest - Dominant}: have the lowest level of fragmentation and are dominated by forest
   \item \textbf{Forest - Agriculture}: still have a healthy amount of forested areas but fragmentation is much more pronounced.
   \item \textbf{Agriculture - Dominant}: forested habitat is scarce and most of the remaining forest is classified as “Trees” in the AAFC dataset (forest fragment of less than 1 hectare)
   \item \textbf{Urban - Medium density}: correspond to the front of the wave of urban sprawling
-  \item \textbf{Urban - High density}: urban cores make up most of the municipality
-\end{itemize}
+  \item \textbf{Urban - High density}: urban cores make up most of the municipality\\
+\end{itemize} 
 
-The ordination of land use change profiles showed that Monteregie has 4 different profiles (see figures (4,  5 and 6):
+The clustering and subsequent ordination of land use change profiles showed that Monteregie has 4 different profiles (see figures \ref{fig:clustertrans}, \ref{fig:PCAtrans}, and \ref{fig:maptrans}):
 \begin{itemize}
   \item \textbf{Urban Spread / Deforestation}: forest fragmentation is progressing mainly via the growth of urban land (in the west) or villegiatives pressures (in the east)
   \item \textbf{Urban Spread / Agricultural loss}: agriculture is losing ground to urban land
