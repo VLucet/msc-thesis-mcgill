@@ -10,6 +10,7 @@
 Ecological connectivity, defined as the extent to which the landscape supports the movements of organisms, can be strongly affected by land use. It is an important component of the resilience of populations in heterogeneous and fragmented landscapes. Land use changes such as urban sprawl and agricultural intensification intensify habitat fragmentation and landscape homogenization, leading to the erosion of ecological connectivity. The Montérégie region in southern Quebec, where this work takes place, is experiencing urban growth and sprawl. We present a framework that integrates land-use change and connectivity modelling to forecast future changes in connectivity, using a combination of statistical modelling, MCMC-based simulations, and circuit theory. We used a hybrid modelling approach to project future land use changes using different scenarios, and estimate future changes in functional connectivity for 5 different umbrella species. We contrast the past and future impacts of trends in land use (i.e.urbanization, agricultural expansion, and deforestation) and derive some insights for the hypothetical design of a local network of connected protected areas resilient to future landscape change. We explore the flexibility of a scenario approach in forecasting the range of possible futures for ecological connectivity in the region. In conclusion, we highlight the need for a multi stakeholder approach in the definition of scenarios and conservation priorities.\\
 
 \section{Introduction}
+
 \textit{Problem Statement}: Connectivity conservation planning methods does not account for risks associated with future land use change. This can potentially lead to ill-informed conservation plans with low chances of success.
 
 \textit{Research question}: \textbf{How can we explain past changes in land use and connectivity in Montérégie and better predict future changes?}\\
@@ -23,16 +24,19 @@ We make use of Albert and Rayfield’s framework, modelling connectivity for the
 We predict that our land use change model will simulate an overall decrease in connectivity change for our focal species, given the fact that we will be simulating a “business as usual” scenario for the change in the region. In addition, we predict that species who prefers coniferous forest will be more strongly impacted that others.\\ %TODO review this paragraphs on predictions
 
 \section{Methods}
+
 In this section, we explain in detail the workflow for chapter 1. The workflow is divided into two major steps: land use change modelling and connectivity modelling. The data and code for this analysis is available on \href{https://github.com/VLucet/landchange-connectivity-Montérégie}{this GitHub repository}. \\
 
 \subsubsection*{\textit{Software tools and reproducibility}}
+
 All work was conducted in the R statistical software version 3.6.2 "Dark and Stormy Night" \citep[see][]{R}). We used ST-Sim version 2.2.10, scripted in R with the help of the rsyncrosim package version 1.2.0. ST-Sim ran on a Linux (Ubuntu 18.04) via mono 6.4.0.198. Many geospatial analysis were conducted in GRASS GIS 7.8. 
 
-A note should be added on data availability and reproducibility. A few datasets were not obtained from open sources. The Canadian census data was obtained through the University of Toronto's CHASS (Computing in the Humanities and Social Sciences) Data Centre, which makes the Rando Foret analysis not reproducible. In addition, data on protected areas in Monteregie was obtained  via the RMN (Réseaux des milieux naturels protégés du Québec) under a limited license, which makes the Land use change modelling via ST-Sim not fully reproducible. However, the results of those steps are made open, and the subsequent steps (habitat modelling, connectivity analysis) are made fully reproducible (see appendix on reproducibility for the steps to take to reproduce those results). \\ %TODO write appendix 
+A note should be added on data availability and reproducibility. A few datasets were not obtained from open sources. The Canadian census data was obtained through the University of Toronto's CHASS (Computing in the Humanities and Social Sciences) Data Centre, which makes the Rando Foret analysis not reproducible. In addition, data on protected areas in Montérégie was obtained  via the RMN (Réseaux des milieux naturels protégés du Québec) under a limited license, which makes the Land use change modelling via ST-Sim not fully reproducible. However, the results of those steps are made open, and the subsequent steps (habitat modelling, connectivity analysis) are made fully reproducible (see appendix on reproducibility for the steps to take to reproduce those results). \\ %TODO write appendix on reproducibility
 
 \subsection{Land Use Change Modelling}
 
 \subsubsection{Background}
+
 Land use change modelling is a prolific subfield of land systems science which has spurred a very large diversity of approaches \citep{dang_review_2016, noszczyk_review_2018}. Beyond the large amount of methods published, the number of applications and software tools that have been built and are available for research purposes is also consequent - although a note must be made on their openness and accessibility, which can vary tremendously \citep{moulds_open_2015}. It is easy to get confused when having to choose the appropriate methods, and papers that compare frameworks and results across tools and methods are rare \citep{pontius_comparing_2008, pontius_comparison_2005}, even if there has been a noticeable effort in the past decades, and  more papers are attempting methodological comparisons \citep{sun_comparison_2018}. Although a full review of land use change modelling methods is beyond the scope of this chapter and this thesis, a few important concepts should be introduced.
 
 A classic, spatially defined land use change model is what can be called a “state change model”, where the landscape is divided in a grid and each grid element (pixel) is assigned a state \citep{daniel_state-and-transition_2016}. Most land use change models rely on some form of remotely sensed land use data in order to be calibrated. Therefore, the list of possible states is derived from the remotely sensed data on which the model will be calibrated. The art of land use change modelling resides in teaching the model how likely each pixel is to transition into another state (or to remain as is), given its current state and given a set of conditions both intrinsic and extrinsic to that pixel. A simple land use change model will assume that the rules of state changes obey markovian laws: i.e. that the next state will always only depend on the current timestep and not previous timesteps. This is a simplification of real landscapes in which the history of the pixel (beyond its present state) can play a large role in the rules governing state change. Probably due to their simplicity, markovian models such as cellular automata have a long history in land use change models and have been shown to deliver accurate results, notably in urban spread modelling \citep{soares-filho_dinamicastochastic_2002, jokar_arsanjani_integration_2013, iacono_markov_2015}. They are yet another application of markov chains, and are fairly easy to set up and to run. Markov chain models represent a phenomenological approach to land use change, because the model learns the rules of transition without requiring an understanding of the mechanisms behind change. The model learns that the state “forest” has a probability of 0.23 to transition into urban if it contains at least 2 urban pixels in a 4 pixel radius (this is an adjacency rule), but it is oblivious to the drivers of land use change.
@@ -62,6 +66,7 @@ For the allocation step, we use an advanced cellular automata (CA) modelling too
 \subsubsection{Data sources and preparation}
 
 \subsubsection*{\textit{Land use change data}}
+
 For most modelling frameworks, the raw source of land use change data is remote sensing data. Because producing land use change data from remotely sensed imagery was beyond the scope of this thesis, we looked for a curated dataset. Agriculture and Agri-Food Canada (AAFC) produces a dataset of land use in Canada at a 10 years interval and at the resolution of 30 meters (the resolution is the dimension of a pixel in a spatial grid, or raster data, and is an important property of land use datasets). This dataset provides land use data for the years of 1990, 2000, 2010. We found this data product, referred to hereafter as the AAFC data  to be the right fit for our approach: the data production method of the AAFC  data is consistent, meaning that similar methods have been used to produce all three maps at different time points. Consistency in data production methods is key as it makes the computation of change between time points more reliable.
 
 This data is not without limitations: compared to other data products - such as the Quebec Ministry of the Environment land use dataset or the Statistique Quebec land accounting dataset - the AAFC dataset is not very detailed: only a few land use categories are identified, and important information for suitability analysis such as forest age and forest density are missing. 
@@ -75,6 +80,7 @@ The AAFC data does not differentiate between different forest type. However, our
 We source two different set of "parameters" from these simulations: first, forest type data in 2010 was used as a starting point for the forecasts scenarios. Second, a set of transition multipliers were extracted from the simulations and was used to reflect different forest dynamics under different climate change scenarios. These are described in more details in the "Model Execution" section.\\
 
 \subsubsection*{\textit{Explanatory variables}}
+
 A diversity of drivers of land-use change can be found in the literature. Some general group of variables can be identified: an important distinction can be made between physical and social-economical variables. Proxy variable for land use change drivers used in this chapter were selected among commonly recognized predictors of land use change.
 
 A digital elevation model was used to derive elevation data (continuous variable). We used the data product “SRTM 30m” available throughout the Google Earth Engine data portal to generate this variable. This data was already available at a 30 m resolution. 
@@ -82,13 +88,15 @@ A digital elevation model was used to derive elevation data (continuous variable
 We used the Canadian Census for the years of 1991, 2001 and 2011, provided by Statistics Canada, to extract two variables: population change (1991 -2001) and average income. The data was not available in a spatial format and had to be turned into a spatial object in R before being rasterized. The data was collected at the lowest aggregation level available: the denomination area (DAs) or the Enumeration area (EAs) depending on the census year (see table \ref{tab:variables} for the full description of variables and data sources).\\
 
 \subsubsection*{\textit{Data preparation}}
-Prior to running the model, the data was pre-processed. The first step consisted in reclassifying the AAFC land use dataset into only 5 categories: the 3 categories of our land use change model and supplemental categories of roads and wetlands. Then, all the pixels classified as forest were reclassified as null, and the resulting maps were patched with the forest cover from the LANDIS simulations' starting conditions (state of forest types in 2010). At the end of this process, some cells remained null as the forest cover in 1990 was larger than that of 2010. We filled those NULL values using modal imputation under two different neighbourhood window sizes (13 and 25 pixels).
+
+The first step of preparing the data from the model consisted in reclassifying the AAFC land use dataset into only 5 categories: the 3 categories of our land use change model and supplemental categories of roads and wetlands. Then, all the pixels classified as forest were reclassified as null, and the resulting maps were patched with the forest cover from the LANDIS simulations' starting conditions (state of forest types in 2010). At the end of this process, some cells remained null as the forest cover in 1990 was larger than that of 2010. We filled those NULL values using modal imputation under two different neighbourhood window sizes (13 and 25 pixels). Next, a 5km buffer was added around Montérégie as to improve the Circuitscpape results later down the pipeline (see the Connectivity Analysis section). Not all NA cells were due to the difference in forest cover between 1990 and 2010. Some were due to the fact that the LANDIS run did not cover some parts of the 5km buffer. Those cells were filled with the value corresponding to the forest type Mixed Forest of Medium Age. We decided on this imputed value because it is among the most suitable to all species and therefore unlikely to cause significant changes in the Circuitscape runs, and second, even if it does not correspond to the mode or the mean for the region. In addition, because no change take place in the buffer, those values can be equivalent to a "padding" around the landscape. 
 
 A second step consisted in the preparation of the explanatory variables. Vector data was rasterized when needed. A non negligeable effort had to be put into wrangling the Canadian Census data, as Statistics Canada does not make available a spatial dataset for their census data. Therefore, the geometries of DAs and EAs had to be matched with the corresponding line in the Census dataset, based on the unique EA and DA IDs. Multiple of these have remained unmatched due to discrepancies between the (spatial) boundaries datasets of EAs/DAs available and the EAs/DAs listed in the StatsCan dataset. This led to areas with NAs values. These areas could not be ignored in our random forest model and had to be imputed. We used mean imputation for lack of a better method but are aware of the large number of issues associated with this practice \citep[see][]{lodder_impute_2014}.
 
 In order to reduce run time as well as memory requirements, we ran the entire simulation at a 90m resolution, which required to aggregate (resample) all of the data in the rasters by a factor of 3, using a majority rule. Finally, all variables were extracted and turn into tabular data. Only relevant pixels (i.e. rows in the dataset) were kept to model each transition. For instance, only forest and agricultural land pixels were kept to model urbanization. The variables were standardized prior to running the model. We used the \verb|tidymodels| framework (version 0.1.0) in R to pre-process our tabular data and run our random forest models. \\
 
 \subsubsection{Preliminary analysis of past land use change}
+
 In an effort to better understand land use patterns in the region, we ran some preliminary analysis on land use change data at the municipality level. Montérégie is made up of 177 different municipalities. We generated land use matrices (amount of each land use category) and land cover transition matrices (1990 to 2010) for each municipality and for the land use categories corresponding to our model. We then performed multivariate analyses by running a first ordination using PCA, and then using Ward clustering % add ref to legendre. 
 Because municipalities in Montérégie have variable size, the amount of change in each municipality needs to be standardized. The data was normalized prior to the ordination to reflect relative amounts of change in each municipality. We used the vegan package in R to produce such plots.\\
 
@@ -111,40 +119,39 @@ There are a number of ways to evaluate model performance in the context of land 
   \item We used a Conventional Cross Validation (CCV) method for the reporting of AUC values, with 10 folds, for which we also produce a measure of AUC with ROC curves.\\
 \end{itemize}
 
-\subsubsection{\textit{ST-Sim model}}
-
-In the subsequent description, we make the distinction between:
-\begin{itemize}
-\item{\textit{historic runs}}, parameterized to reproduce the changes that happened between 1990 and 2010 in the region, with a different set of transition targets for 1990-2000 and 2000-2010. 
-\item{\textit{forecast runs}}, parameterized to project forward an average of the trends observed in the two decades, with a single set of transition targets (average of the two 1990-2000 and 2000-2010 targets) and for which only certain set of spatial multipliers change depending on climatic scenarios. 
-\end{itemize}
-
-ST-Sim is a State and Transition model (STM), and can therefore be provided with straight probabilities of change. However in order to integrate the results of our random forest models, we parameterize ST-Sim differently than a classic STM. All probabilities are in fact set to one, and we leverage the spatial multiplier feature of the software. We provide our fitted probability surfaces (outputs of the RF models) as spatial multipliers. Therefore, each pixel's probability of change is provided by that surface (multiplied by 1).  This is not enough to reproduce past trends in land use change: we need to provide transition targets to the allocation algorithm. These targets are directly based on the amount of land change between 1990 and 2010 for time steps 1990 - 2010. + spatial multipliers derived from the RF previously mentioned
-
-In all scenarios described, ST-Sim was run from 1990 to 2100 with decadal time steps, for 10 iterations (10 MCMC realization).\\
+\subsubsection*{ST-Sim}
+ST-Sim is a State and Transition model (STM), and can therefore be provided with straight probabilities of change. However in order to integrate the results of our random forest models, we parameterize ST-Sim differently than a classic STM. All probabilities are in fact set to 1, and we leverage the spatial multiplier feature of the software. We provide our fitted probability surfaces (outputs of the RF models) as spatial multipliers. Therefore, each pixel's probability of change is provided by that surface (multiplied by 1).  This is not enough to reproduce past trends in land use change: we need to provide transition targets to the allocation algorithm. These targets are directly based on the amount of land change between 1990 and 2010 for time steps 1990 - 2010.\\
 
 \subsubsection*{\textit{Model definition}}
 
 The ST-Sim model uses three states: Forest, Urban and Agriculture. Forest was further subdivided into classes of age and type, derived from the LANDIS outputs: three forest types (\textbf{decididuous}, \textbf{mixt}, and \textbf{coniferous}) and three age classes (\textbf{young}, \textbf{medium}, and \textbf{old}) for a total of 9 classes.
-
 The model allows for 4 groups of transitions:
 \begin{itemize}
 \item{\textbf{Urbanisation}}: groups \textbf{deforestation} (Forest $\Rightarrow$ Urban) and \textbf{agricultural loss} (Agriculture $\Rightarrow$ Urban). 
 \item{\textbf{Agricultural expansion}} (Forest $\Rightarrow$ Urban).
-\item{\textbf{Forest Internals}}: groups the 72 combinations of forest change between the 9 forest internal states.\\
+\item{\textbf{Forest Internals}}: groups the 72 combinations of forest change between the 9 forest internal states.
 \end{itemize} 
-
-The model takes in 3 different strata. A stratum in ST-Sim refers to a subset of the entire landscape being considered for analysis. Strata are typically used to divide the overall landscape into regions or zones, each of which can have different model parameters specified.
+The model takes in 3 different strata. A stratum in ST-Sim refers to a subset of the entire landscape being considered for analysis. Strata are typically used to divide the overall landscape into regions or zones, each of which can have different model parameters specified. The three stratum are:
+\begin{itemize}
+\item{Primary stratum:} delineates Montérégie from the  surrounding buffer and highlights protected areas. 
+\item{Secondary stratum:} delineates municipalities of the region, to allow to set targets specific to eacg municipality.  
+\item{Tertiary stratum:} delineates LANDIS land types, to allow to set transition multipliers for forest types that matches the LANDIS simulations. \\
+\end{itemize}
 
 
 \subsubsection*{\textit{Spatial dependency}}
 
 Under the parameters defined so far, ST-Sim takes care of transitioning the amount of land corresponding to the targets it is fed, and will do it probabilistically across the landscape according to the probability surface (spatial multipliers). There is an additional way to restrict this change via Adjacency parameters, which are essentially neighbourhood rules. Adjacency rules were  defined from basic assumptions about transition spread. The list of neighbourhood rules given for each transition type (or group) is provided in \ref{tab:neigh_rules}.
 
-We added two more conditions for the Forest Internals group: the Time since Transition parameter which sets a minimum time pf 20 years (2 timesteps) in between transitions between Forest  types states. In addition, pathway autocorrelation settings allows to compartmentalize all parameters to a given set of regions.  
+We added two more contraints for the Forest Internals group: the Time since Transition parameter which sets a minimum time pf 20 years (2 timesteps) in between transitions between Forest  types states. In addition, pathway autocorrelation settings allows to further isolate the characterization of transition rules to the specific land type to which a pixel belongs.\\
 
 \subsubsection*{\textit{Scenario definition}}
 
+In the subsequent description, we make the distinction between:
+\begin{itemize}
+\item{\textit{historic runs}}, parameterized to reproduce the changes that happened between 1990 and 2010 in the region, with a different set of transition targets for 1990-2000 and 2000-2010. 
+\item{\textit{forecast runs}}, parameterized to project forward an average of the trends observed in the two decades, with a single set of transition targets (average of the two 1990-2000 and 2000-2010 targets) and for which only certain set of spatial multipliers change depending on climatic scenarios. 
+\end{itemize}
 We defined 2 land use change scenarios, crossed with 2 different climate change scenarios, plus a control climate scenario. those 6 scenarios in total are designed to  encompass the realm of possible future habitat changes for our 5 focal species.
 The two land use change scenarios are:
 \begin{itemize}
@@ -155,22 +162,27 @@ The climate scenarios influence the probability of transitions between forest ty
 \begin{itemize}
 \item{\textbf{Historic (HIST)}}: No forest change: forest remains at it was in 2010. This is equivalent to a control treatment.
 \item{\textbf{Baseline (BASE)}}: Forest change continues as it does in today's climate. 
-\item{\textbf{RCP 8.5 (RCP85)}}: The forest changes according to the emissions scenario RCP 8.5, characterised by increasing green-house gas emissions, high rates of population growth, modest GDP growth and low rates of technological development and uptake. It is the most severe of the future scenarios and you can cite the Fifth Assessment Report of the IPCC \citep{ipcc_summary_2013}.\\
+\item{\textbf{RCP 8.5 (RCP8)}}: The forest changes according to the emissions scenario RCP 8.5, characterised by increasing green-house gas emissions, high rates of population growth, modest GDP growth and low rates of technological development and uptake. It is the most severe of the future scenarios and you can cite the Fifth Assessment Report of the IPCC \citep{ipcc_summary_2013}.\\
 \end{itemize} 
 
-\subsubsection*{\textit{Details of run parameters}}
-We ran a total of 7 scenarios:
+\subsubsection*{\textit{Details of run parameters}} %TODO complete this
+%Maybe add reference to a table that summarises all the scenarios (cobiens with those of chapter 2 in the appendix
+
+We ran a total of 7 scenarios (1 historic run and 6 forecast runs). Two behaviours remain constant in all 7 scenarios: no land use change  takes place in the 5km buffer. In addition, new forest laid by the reforestation scenario does not change state for the remaining of the simulation (this is because LANDIS does not provide land type data for new pixels). In all scenarios described, ST-Sim with decadal time steps, for 10 (5?) iterations (10 MCMC realization).
 \begin{itemize}
-\item \textbf{Historic run - 1990 to 2010} %TODO explain that forest is 2010 but not changing, just used for comparison.
-\item \textbf{Forecast Land use BAU - Historic climate - 2010 to 2100}
-\item \textbf{Forecast BAU - Baseline climate - 2010 to 2100}
-\item \textbf{Forecast BAU - RCP 8.5 climate - 2010 to 2100}
+\item Historic run - 1990 to 2010 \textbf{(HIST)}. In this run no forest change is allowed to take place, and targets are set to match  %TODO explain that forest is 2010 but not changing, just used for comparison.
+\item Forecast land use BAU - Historic climate - 2010 to 2100 \textbf{(BAU-HIST)}
+\item Forecast land use BAU - Baseline climate - 2010 to 2100 \textbf{(BAU-BASE)}
+\item Forecast land use BAU - RCP 8.5 climate - 2010 to 2100 \textbf{(BAU-RCP8)}
+\item Forecast land use reforestation - Historic climate - 2010 to 2100 \textbf{(BAU-R-HIST)}
+\item Forecast land use reforestation - Baseline climate - 2010 to 2100 \textbf{(BAU-R-BASE)}
+\item Forecast land use reforestation - RCP 8.5 climate - 2010 to 2100 \textbf{(BAU-R-RCP8)}\\
 \end{itemize}
-%TODO add reference to a table that summarises all the scenarios (cobiens with those of chapter 2 in the appendix)
 
 \subsection{Connectivity modelling}
 
-\subsubsection{Background}
+\subsubsection{Background} %TODO add references to this
+
 The simplest way to describe connectivity is as a property of the landscape. Connectivity is the extent to which the landscape facilitates or impedes the movement of organisms. It is a dynamic property: a full definition of connectivity takes into account how it changes across time and space. Connectivity is also a multi-dimensional property. It will manifest itself differently depending on the needs of different species. Because these needs will also vary depending on the time of the year and on their habitat range and preferences, connectivity science is concerned with scale. The scale of a connectivity analysis will often depend on the needs of the species considered. Therefore, from being a dynamic and multi-dimensional property of the landscape, ecological connectivity is also a multi-scalar property. These properties make connectivity modelling interesting, but challenging.
 
 Connectivity modelling is similar to land use change modelling inasmuch as the diversity of methods at the researcher’s disposal is large.  Methods of connectivity modelling are grounded in important concepts, the most important of which is graph theory. Graph theory is the study of graphs, and describes the properties of the elements (edges and vertices) that make up a network. Applying graph theory to a landscape comes down to collapsing that landscape into a network, from which metrics can be computed, and models can be fitted - for instance dispersal models, which makes metapopulation theory another important concept in connectivity. Metapopulation theory describes how populations of a given species in a landscape are connected through dispersal and gene flow, which makes landscape genetics a prolific field for connectivity modelling.
@@ -182,15 +194,19 @@ There has been a significant push in the recent literature for focusing onto fun
 A typical PFC modelling workflow can be broken down to 3 steps: species selection, Habitat suitability modelling and connectivity analysis. The three steps are described below, and the methodology follows closely the methodology of Rayfield et al.\\
 
 \subsubsection{Species Selection}
+
 Species selection is unchanged from Rayfield et al. The 5 species chosen are presented in table \ref{tab:species}.\\
 
 \subsubsection{Habitat Suitability}
 
 \subsubsection*{\textit{}} %TODO complete this
+
 Habitat suitability analysis consists in reclassifying land use data into a resistance surface which is then used to model connectivity at the next step.
-Habitat suitability remains mostly unchanged from Rayfield et al. The main difference is that the AAFC data does not contain information on the forest density and age. To remedy this simulation are ongoing in collaboration with NRC (Natural Resources Canada, Boulanger and Larocque 2020), to obtain future changes in Forest types and age.\\
+%Habitat suitability remains mostly unchanged from Rayfield et al. 
+The main difference is that the AAFC data does not contain information on the forest density and age. To remedy this simulation are ongoing in collaboration with NRC (Natural Resources Canada, Boulanger and Larocque 2020), to obtain future changes in Forest types and age.\\
 
 \subsubsection{Connectivity analysis}
+
 The method of choice for our connectivity analysis is a circuit-theory based software called Circuitscape, a free and open software under MIT license developed originally in Python, and now in its 5th version, in Julia \citep{circuitjulia}.  Circuitscape “borrows algorithms from electronic circuit theory to predict connectivity in heterogeneous landscapes”.
 For each of the maps produced in the first step, Circuitscape was run in two directions (“wall to wall” run): east to west and north to south. The results for each map were added and an average is taken for all iterations at each timestep.\\
 
@@ -203,6 +219,7 @@ For each of the maps produced in the first step, Circuitscape was run in two dir
 \section{Results}
 
 \subsection{Analysis of past land use changes in Montérégie}
+
 The clustering and subsequent ordination of the land use change matrices of the 177 municipalities revealed that Montérégie has 5 profiles and land compositions (see figures \ref{fig:clustervals}, \ref{fig:PCAvals}, and \ref{fig:mapvals}):
 \renewcommand{\labelitemi}{$\textendash$}
 \begin{itemize}[leftmargin=0.5cm]
