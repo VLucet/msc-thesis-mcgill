@@ -25,13 +25,13 @@ We predict that our land use change model will simulate an overall decrease in c
 
 \section{Methods}
 
-In this section, we explain in detail the workflow for chapter 1. The workflow is divided into two major steps: land use change modelling and connectivity modelling. The data and code for this analysis is available on \href{https://github.com/VLucet/landchange-connectivity-Montérégie}{this GitHub repository}. \\
+Our workflow is divided into two major steps: land use change modelling and connectivity modelling. The data and code for this analysis is available at \href{https://github.com/VLucet/landchange-connectivity-Montérégie}{this GitHub repository}. We included two workflow figures to help guide the understanding of the methods (figure \ref{fig:workflow1} and ??). \\
 
 \subsubsection*{\textit{Software tools and reproducibility}}
 
-All work was conducted in the R statistical software version 3.6.2 "Dark and Stormy Night" \citep[see][]{R}). We used ST-Sim version 2.2.10, scripted in R with the help of the rsyncrosim package version 1.2.0. ST-Sim ran on a Linux (Ubuntu 18.04) via mono 6.4.0.198. Many geospatial analysis were conducted in GRASS GIS 7.8. 
+All work was conducted in the R statistical software version 3.6.2 "Dark and Stormy Night" \citep[see][]{R}). We used ST-Sim version 2.2.10, scripted in R with the help of the rsyncrosim package version 1.2.0. ST-Sim ran on a Linux (Ubuntu 18.04) via mono 6.4 Many steps of data preparation were conducted in GRASS GIS 7.8. 
 
-A note should be added on data availability and reproducibility. A few datasets were not obtained from open sources. The Canadian census data was obtained through the University of Toronto's CHASS (Computing in the Humanities and Social Sciences) Data Centre, which makes the Rando Foret analysis not reproducible. In addition, data on protected areas in Montérégie was obtained  via the RMN (Réseaux des milieux naturels protégés du Québec) under a limited license, which makes the Land use change modelling via ST-Sim not fully reproducible. However, the results of those steps are made open, and the subsequent steps (habitat modelling, connectivity analysis) are made fully reproducible (see appendix on reproducibility for the steps to take to reproduce those results). \\ %TODO write appendix on reproducibility
+A note should be added on data availability and reproducibility. A few datasets were not obtained from open sources. These datasets are marked in red in figure \ref{fig:workflow1}. The Canadian census data was obtained through the University of Toronto's CHASS (Computing in the Humanities and Social Sciences) Data Centre, which requires institutional access. This makes the Random Forest analysis not reproducible. In addition, data on protected areas in Montérégie was obtained  via the RMN (Réseaux des milieux naturels protégés du Québec) under a limited license, which makes the Land use change modelling via ST-Sim not fully reproducible. However, the results of those steps are made open, and the subsequent steps (habitat modelling, connectivity analysis) are reproducible via the use of various software( i.e. docker, renv, and more). Please consult the appendix on reproducibility for the steps to take to reproduce those results. \\ %TODO write appendix on reproducibility
 
 \subsection{Land Use Change Modelling}
 
@@ -249,7 +249,7 @@ These results show interesting regional trends with a front line of fragmentatio
 
 \subsection{Connectivity Modelling}
 
-\subsection{Scenario comparison}
+\subsection{Scenario Comparisons}
 
 \section{Discussion}
 
@@ -262,13 +262,37 @@ These results show interesting regional trends with a front line of fragmentatio
 \section*{Figures \& Tables}
 \end{center}
 
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+% methods figures %TODO better caption describing colors
+
+\begin{figure}[h]
+\makebox[\textwidth]{
+\includegraphics[width=1.3\textwidth]{figures/Chapter1_flowchart.png}
+}
+\caption{Workflow for data preparation, statistical modelling and land use change modelling.}
+\label{fig:workflow1}
+\end{figure}
+\clearpage
+
+\begin{figure}[h!]
+\makebox[\textwidth]{
+\includegraphics[width=1.3\textwidth]{figures/Chapter1_flowchart2.png}
+}
+\caption{Workflow for the habitat suitability and connectivity analyses.} 
+\label{fig:workflow1}
+\end{figure}
+\clearpage
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+% results figures
+
 % Figures: values
 % Clustering
 \begin{figure}[h!]
-  \centering
-    \includegraphics[width=\textwidth]{figures/clustering_values.png}
-  \caption{Results of Ward clustering for land use for municipalities (cut at 5 groups)}
-  \label{fig:clustervals}
+\centering
+ \includegraphics[width=\textwidth]{figures/clustering_values.png}
+ \caption{Results of Ward clustering for land use for municipalities (cut at 5 groups)}
+ \label{fig:clustervals}
 \end{figure}
 
 % PCA
@@ -312,6 +336,7 @@ These results show interesting regional trends with a front line of fragmentatio
   \label{fig:maptrans}
 \end{figure}
 
+\clearpage
 %---------------------------------------------------------------------------------------------------------------------------------------------------
 
 % RF variables
@@ -319,7 +344,7 @@ These results show interesting regional trends with a front line of fragmentatio
 \centering
 \caption{Description and data sources for all variables used in the RF-CA model}
 \label{tab:variables}
-\begin{tabular}{|l|l|l|}
+\begin{tabular}{lll}
 \hline
 \textbf{Variable} & \textbf{Format} & \textbf{Source}  \\ 
 \hline
