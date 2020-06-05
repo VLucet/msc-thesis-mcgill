@@ -4,6 +4,7 @@
 \addcontentsline{toc}{chapter}{Chapter I Supplementary Material}
 
 \setcounter{chapter}{3}
+\setcounter{table}{0}
 %\begin{landscape}
 \begin{longtable}[c]{|p{5cm}|p{11cm}|}
 %\centering
@@ -23,3 +24,41 @@ Black Bear \newline \textit{Ursus americanus} & Large opportunistic omnivorous m
 %\end{tabular}
 \end{longtable}
 %\end{landscape}
+
+% Add reclass table for the land use
+
+% Neighborhood rules
+
+\begin{table}[h!]
+\centering
+\caption{Neighborhood rules for ST-Sim transitions}
+\label{tab:neigh_rules}
+\begin{tabular}{llcc}
+\hline
+\textbf{Transition} & \textbf{State counted} & \textbf{Neighborhood (m)} & \textbf{Minimum Proportion} \\ \hline
+Urbanization & Urban & 500 & 0.5 \\
+Agricultural Expansion & Agriculture & 250 & 0.75 \\
+Reforestation & Forest (any type) & 225 & 0.5 \\
+Forest Internals & Forest (specific type) & 225 & 0.05 \\ \hline
+\end{tabular}
+\end{table}
+
+% Habitat suitability 
+
+\begin{table}[h!]
+\centering
+\caption{Pixel suitability based on forest types and age.}
+\label{tab:suit_pixls}
+\begin{tabular}{lccccccccc}
+\cline{2-10}
+ & \multicolumn{9}{c}{\textbf{Forest}} \\ \cline{2-10} 
+\textbf{} & \multicolumn{3}{c}{\textbf{Deciduous}} & \multicolumn{3}{c}{\textbf{Mixt}} & \multicolumn{3}{c}{\textbf{Coniferous}} \\ \hline
+\textbf{Species} & \textbf{Young} & \textbf{Medium} & \textbf{Old} & \textbf{Young} & \textbf{Medium} & \textbf{Old} & \textbf{Young} & \textbf{Medium} & \textbf{Old} \\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Blarina \\ brevicauda\end{tabular}} & 0 & 0.5 & 1 & 0 & 0.5 & 1 & 0 & 0 & 0 \\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Martes \\ americana\end{tabular}} & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 \\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Plethodon \\ cinereus\end{tabular}} & 1 & 1 & 1 & 1 & 0.5 & 1 & 0 & 0 & 0 \\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Rana \\ sylvatica\end{tabular}} & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Ursus\\ americanus\end{tabular}} & 1 & 1 & 1 & 0.5 & 0.5 & 0.5 & 1 & 1 & 1 \\ \hline
+\end{tabular}
+\end{table}
+% One table showing the final resistance value based on cases
