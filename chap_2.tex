@@ -1,5 +1,5 @@
 % !TEX root = ./thesis.tex
-\chapter{Comparing model-driven connectivity conservation priorities with perceptions of priorities by local stakeholders}
+\chapter{Understanding stakeholders perceptions of connectivity conservation priorities and integrate them into a spatially explicit land use and connectivity change model}
 \begin{center}
 {Valentin Lucet$^{1}$, Andrew Gonzalez$^{1}$}\\
 \end{center}
@@ -10,10 +10,11 @@
 
 \section{Introduction}
 
-\textit{Problem statement}: Current connectivity conservation science  fails to confront the results of the prioritisation with the priorities perceived by stakeholders, and therefore fails to integrate them.
+\textit{Problem statement}: Connectivity conservation planning methods do not account for stakeholder perceptions. This can potentially lead to ill-informed conservation plans with low chances of success.
 
-\textit{Research questions}: \textbf{How do different stakeholders perceive connectivity conservation priorities, given the obstacles and opportunities for land use planning apparent in the region? How do community perception of connectivity priority areas align with modelling outputs?} \\
+\textit{Research questions}: \textbf{How do different stakeholders perceive connectivity conservation priorities, given the obstacles and opportunities for land use planning apparent in the region, and which conservation scenarios can be derived from these perceptions?} \\
 
+%-----------------------------------------------
 Connectivity conservation methods usually entails modelling connectivity of the landscape of interest and using a prioritisation method to determine conservation priorities. However, current connectivity conservation planning methods fail to confront the results of the prioritisation with the priorities perceived by stakeholders.
 
 Failing to integrate the perceptions of stakeholders is detrimental to conservation for two reasons: first, it most likely mean that conservation will fail to gather enough local momentum to lead to actual policy change, and second, it means that the only tool for decision making will be the modelisations, whereas these are incomplete representation of the landscape and would benefit from inputs from stakeholders. This is especially true in landscapes where a considerable effort of connectivity modelling has already been conducted, like in the landscape of interest in this thesis, the southern Quebec region of Montérégie.
@@ -25,14 +26,15 @@ Our understanding of SESs often lacks two important elements: social realism and
 This study aims to start filling the gap identified by conducting participatory research in Montérégie, in south Quebec, where connectivity conservation has become an important stake. This project has been developed in collaboration with the non-profit NAQ (Nature action Quebec). NAQ invited the QCBS to contribute to their connectivity conservation project (called PADF, or Plan d’Aménagement Durable des Forêts) by co-developing the research described here.
 
 The goal of this chapter is therefore twofold: gain a better understanding of conservation priorities in the region and then compare them to the results of chapter 1. We use a workshop and GIS as the main methodological tool.\\
+%-----------------------------------------------
 
 \section{Methods}
 
-\subsection{workshop}
+In order to understand what stakeholders perceive as a conservation priority, and derive conservation scenarios from those perceptions, we conducted a community workshop. The workshop was approved by McGill University’s Research Ethics Board (see appendix {x} for the approval letter). The workshop was held on January 22nd 2020 in the public library of Saint-Jean sur Richelieu. \\
 
-\subsubsection{Target}
+\subsection{Community Workshop}
 
-The workshop was organised on January 22nd 2020, and aimed to gather stakeholders from multiple groups (of all the groups, only the last group was not represented):
+The workshop aimed to gather stakeholders from multiple groups (of all the groups, only the last group was not represented):
 \begin{enumerate}
   \item Representatives of Non-Governmental Organizations that are involved in the conservation of ecological connectivity within the study extent (i.e. Montérégie).
   \item Land use planners (“amenagistes”) of the administrative regions covered by the study extent (the 15 MRCs in Montérégie).
@@ -43,13 +45,13 @@ The workshop was organised on January 22nd 2020, and aimed to gather stakeholder
 
 \subsubsection{Consensual mapping}
 
-We employed a method that could be coined “consensual participatory mapping in geographically structured focus groups”. This means that participants whose organisations operate in the same region (the same MRC) are seated at the same table. See table 4 for the breakdown of each MRC by table, of which there were 4. In addition, for participants whose zone of influence/action covered the whole region, two “transversal tables” were created. In the subsequent section, the results are divided between the regional and transversal tables.
+We employed a method coined as “consensual participatory mapping in geographically structured focus groups”. Participants whose organisations operate in the same region (the same MRC) were seated at the same table. See table \ref{workshoptables} for the breakdown of each MRC by table. In addition, for participants whose zone of influence or zone of action covered the whole region, two “transversal tables” were created. In the subsequent sections, the workshop results are divided between the regional and transversal tables.
 The general method proceeds in 3 exercises, each step involving the same focus groups.
 
 \begin{itemize}
   \item Exercise 1: mapping of forested cores of importance for ecological connectivity.
   \item Exercise 2: mapping of spatially explicit obstacles and opportunities for habitat connectivity in terms of social-economic activity and land use.
-  \item Exercise 3: mapping of links of importance between forested cores of importance, that takes into account obstacles and opportunities on the landscape.
+  \item Exercise 3: mapping of links of importance between forested cores of importance, taking into account obstacles and opportunities on the landscape.
 \end{itemize}
 
 Each of these three exercises is conducted in 4 to 5 steps. Here we use exercise 1 to describe the method in more detail at each step.
@@ -73,7 +75,7 @@ The coding system manifests itself in multiple ways, depending on the activity:
 
 To ensure that this system is used consistently throughout the workshop, each participant is given a personal folder with their own color-coded stickers and post-its. Participants are instructed to only use the stickers and material that have been personally handed to them.\\
 
-\subsubsection{Weighting system}
+\subsubsection*{Weighting system}
 
  The participants were given a total of 6 stickers to cast their vote for the opportunities and obstacles that they thought were most important. They were given a total of 6 stickers: 2 blue (important), 2 yellow (very important) and 2 red (of the first importance).\\
 
@@ -95,26 +97,59 @@ The data from the opportunities and challenges activity (with post-its), and the
 \item This diversity score is the inverse simpson index (R package Vegan). The more diverse the group the higher this index is.
 \end{itemize}
 \end{enumerate}
-These steps were carried for each table and the results were treated separately for each table because not all tables had the same potential for diversity. For each table, the 10 post-its with the highest scores were retained, 5 among the post-its that had been placed on a specific area of the map (spatialized) and 5 for those that were not. They can be found in table 1 and 2 (in french) in appendix 1. In addition, a map was produced of the spatialized post-its (see figure 9).\\
+These steps were carried for each table and the results were treated separately for each table because not all tables had the same potential for diversity. For each table, the 10 post-its with the highest scores were retained, 5 among the post-its that had been placed on a specific area of the map (spatialized) and 5 for those that were not. The list of post-it contents, along with the scores, can be found in the appendix tables \ref{tab:opp_chall_ns} and \ref{tab:opp_chall_s}. In addition, a map synthetic map of the spatialized post-its was produced (see figures \ref{reg_AC} and \ref{trans_AC}).\\
 
-\subsubsection*{Priority areas and links}
+\subsubsection*{Digitization of results}
 
-The priority areas and links were digitized by hand in QGIS. The smooth tool was used to generalize the trace of each area and corridors (see figure 10 for the final results). It is important to note that those maps  are an approximate representation of reality, as both the drawing during the activity was done with approximation in mind.\\
+The priority areas and links were digitized by hand in QGIS. The smooth tool was used to generalize the trace of each area and corridors (see figures \ref{}  and \ref{} for the final results). It is important to note that those maps are an approximate representation of reality, as both the drawing during the activity was done with approximation in mind.
 
-\subsubsection{Comparison with models}
+In order to integrate the results with the land use change model, we added a 5 km buffer around the linkages to simulate a corridor effect. This corridor width size is arbitrary and is meant as an unrealistic expectation as to how large a wildlife corridor can or should be. \\
 
-We will produce a visual comparison of the two outputs when the model run is complete. Any further comparison method remains to be decided.\\
+\subsection{Conservation and land use change scenarios}
+
+The conservation scenarios were derived with the goal to demonstrate how results of this type of community workshop can be integrated with other planning methods in connectivity conservation, such as land use change and connectivity modelling. They are not meant to be directly used as conservation guidelines. They are unrealistic by definition and are meant to reflect the most extreme bounds of connectivity change and/or protection measures imaginable for the region. More realistic scenarios featuring targeted action would need to be devised in future community workshops. Although there exists a tremendous amount of work on scenario-building for conservation, specific examples for connectivity conservation are rare. The scenarios presented here are only meant as a “proof of concept” for the integration of qualitative results into a quantitative model. 
+
+We integrate the results of the workshop with the land use change and connectivity model devised in Chapter 1 by changing two attributes of the model: \textit{conservation status} and \textit{reforestation location}. These additional conservation scenarios are crossed with the climate change scenarios.
+
+Conservation status determines whether or not forest can be cut down, and whether pixels can transition into urban and agricultural land. In Chapter 1, we gave this status to areas that were previously known as protected, but assumed no more forest would be added to this set of protected areas. In this chapter, a protection status is given to all pixels within the identified priority areas and within a 5km buffer around the identified priority linkage areas. All pixels under this status cannot transition into urban land and remain in their state. This represent an unrealistic proportion of the region to protect (about 33% of the region)
+
+Reforestation location modifies what zones can be targeted for reforestation. In reforestation scenarios in Chapter 1, reforestation happens randomly (barring some neighboring rules). In this chapter, reforestation is targeted to the same areas identified in the workshop (all pixels within the identified priority areas and within a 5km buffer around the identified priority linkage areas). As in the model described in Chapter 1, the new reforested area takes the value of medium aged forest. No Forest transitions are allowed for this forest type, given that the LANDIS surface types are not available for newly forested areas in the framework of the model. 
+
+The three modified conservation and land use change scenarios are therefore:
+\begin{enumerate}
+	\item Business as usual land use change + corridor protection \textbf{(BAU-Corr)}
+	\item Business as usual land use change + corridor protection + reforestation \textbf{(BAU-R-Corr)}
+	\item Business as usual land use change + corridor protection + targeted reforestation \textbf{(BAU-R(T)-Corr)} \\
+\end{enumerate}
+
+\subsubsection{Connectivity analyses}
+
+In order to be able to compare the results of these new scenarios with those developed in Chapter 1, we conduct the same connectivity analyses using the Circuitscape software. The software “borrows algorithms from electronic circuit theory to predict connectivity in heterogeneous landscapes''. It is a free and open software under MIT license developed originally in Python, and now in its 5th version, in Julia \citep{circuitjulia}.
+
+For each of the maps produced in the suitability analysis, Circuitscape was run in two directions (“wall to wall” run, \cite{mcrae_conserving_2016}): east to west and north to south. This method allowed us to model omnidirectional animal movements, and required that we added the resulting North/South and East/West flow map. The results for each map were therefore added to produce a final set of flow maps for analysis. From these flow maps, we extracted the mean flow for each of the municipalities and for the entire flow map. \\
 
 \section{Results}
 
+%TBC 
+
 \section{Discussion}
+
+%TBC
 
 \section{Conclusion}
 
+% To rewrite
 At this step of completion of the project, there remains many steps with regard to data processing, analysis and presentation that still needs to be answered. Concerning data processing and model proofing, chapter 1 remains very weak in its capacity to evaluate how much the Random Forest - Cellular Automata model can be trusted to provide a good predictor of land use change. This is due in part to the model fitting process which so far relies on practices for which we should perhaps seek an alternative such as mean imputation and raster aggregation. Concerning data analysis and presentation, the main issues are in chapter 2, where the methods of analysis of the workshop data remain to be fully determined. The method for comparing  connectivity outputs with community-produced corridors also remains to be decided. That being said, we are on our way to provide an answer to the problems identified in the problem statement of each chapter.\\
 
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+
 \newpage
+\begin{center}
 \section*{Figures \& Tables}
+\end{center}
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+% tables
 
 \begin{table}[h!]
 \centering
@@ -130,3 +165,44 @@ Est & Brome-Missisquoi, Haute Yamaska, Acton \\
 Transversal (x2) & Toute la Montérégie (All of  Montérégie)\\ \hline
 \end{tabular}
 \end{table}
+
+\clearpage
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+% figures
+
+\begin{figure}[h!]
+\makebox[\textwidth]{
+\includegraphics[width=1.3\textwidth]{figures/Regional_AC.png}
+}
+\caption{Cartography of opportunity and challenges  with the highest importance and diversity metric (Regional tables).}
+\label{fig:reg_AC}
+\end{figure}
+\clearpage
+
+\begin{figure}[h!]
+\makebox[\textwidth]{
+\includegraphics[width=1.3\textwidth]{figures/Transversal_AC.png}
+}
+\caption{Cartography of opportunity and challenges  with the highest importance and diversity metric (Transversal tables).}
+\label{fig:trans_AC}
+\end{figure}
+\clearpage
+
+\begin{figure}[h!]
+\makebox[\textwidth]{
+\includegraphics[width=1.3\textwidth]{figures/Regional.png}
+}
+\caption{Cartography of priority areas and links (Regional tables).}
+\label{fig:reg}
+\end{figure}
+\clearpage
+
+\begin{figure}[h!]
+\makebox[\textwidth]{
+\includegraphics[width=1.3\textwidth]{figures/Transversal.png}
+}
+\caption{Cartography of priority areas and links (Transversal tables).}
+\label{fig:trans}
+\end{figure}
+\clearpage
