@@ -25,7 +25,28 @@ Black Bear \newline \textit{Ursus americanus} & Large opportunistic omnivorous m
 \end{longtable}
 %\end{landscape}
 
-% Add reclass table for the land use
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+
+% RF variables
+\begin{table}[h!]
+\centering
+\caption{Description and data sources for all variables used in the RF-CA model}
+\label{tab:variables}
+\begin{tabular}{lll}
+\hline
+\textbf{Variable} & \textbf{Format} & \textbf{Source}  \\ 
+\hline
+Distance from urban land & \multirow{3}{*}{Raster} & \multirow{2}{*}{Generated from land cover data} \\ \cline{1-1}
+Size of forest patch &  &  \\ \cline{1-1} \cline{3-3} 
+Elevation &  & \begin{tabular}[c]{@{}l@{}}SRTM 30m from \\ Google Earth Engine \\ data library\end{tabular} \\ \hline
+Population change & \multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Tabular data joined to vector \\ data and rasterized\end{tabular}} & \multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Canadian Census for \\ 1991, 2001 and 2011\end{tabular}} \\ \cline{1-1}
+Income &  &  \\ 
+\hline
+\end{tabular}
+\end{table}
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+% STSIM TABLES
 
 % Neighborhood rules
 
@@ -36,12 +57,15 @@ Black Bear \newline \textit{Ursus americanus} & Large opportunistic omnivorous m
 \begin{tabular}{llcc}
 \hline
 \textbf{Transition} & \textbf{State counted} & \textbf{Neighborhood (m)} & \textbf{Minimum Proportion} \\ \hline
-Urbanization & Urban & 500 & 0.5 \\
-Agricultural Expansion & Agriculture & 250 & 0.75 \\
-Reforestation & Forest (any type) & 225 & 0.5 \\
-Forest Internals & Forest (specific type) & 225 & 0.05 \\ \hline
+Urbanization & Urban & 500 & 0.7 \\
+Agricultural Expansion & Agriculture & 250 & 0.9 \\
+Reforestation & Forest (any type) & 250 & 0.9 \\
+Forest Internals & Forest (specific type) & 225 & 0.15 \\ \hline
 \end{tabular}
 \end{table}
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+% Connectivity analyses tables
 
 % Habitat suitability 
 
@@ -61,9 +85,60 @@ Forest Internals & Forest (specific type) & 225 & 0.05 \\ \hline
 \textit{\begin{tabular}[c]{@{}l@{}}Ursus\\ americanus\end{tabular}} & 1 & 1 & 1 & 0.5 & 0.5 & 0.5 & 1 & 1 & 1 \\ \hline
 \end{tabular}
 \end{table}
-% One table showing the final resistance value based on cases
+
+% Reclassification into resistance
+
+\begin{table}[h!]
+\centering
+\caption{Resistance reclassification key for non-forest pixels.}
+\label{tab:key_non_forest}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Species} & \textbf{Urban land} & \textbf{Roads} & \textbf{Agricultural land} & \textbf{Wetlands} & \textbf{Water} & \textbf{Other} \\ \hline 
+\textit{\begin{tabular}[c]{@{}l@{}}Blarina \\ brevicauda\end{tabular}} 	&  32 & 32 &	8    & 8 & 16 & 8\\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Martes \\ americana\end{tabular}} 	&  32 & 32 &	16  & 8 &	 16 & 8\\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Plethodon \\ cinereus\end{tabular}} 	&  32 & 32 &	8    & 8 & 32 & 8	\\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Rana \\ sylvatica\end{tabular}} 			&  32 & 32 &	8    & 2 & 8   &	 8	\\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Ursus\\ americanus\end{tabular}} 		&  32 & 32 &	16  & 2 &	 16 & 8\\ \hline
+\end{tabular}
+\end{table}
+
+\clearpage
+
+\begin{table}[h!]
+\centering
+\caption{Minimum patch size for suitability of a patch in the habitat suitability analysis.}
+\label{tab:patch_size}
+\begin{tabular}{lc}
+\hline
+\textbf{Species} 																									& \textbf{Minimum patch size} (hectares) \\ \hline 
+\textit{\begin{tabular}[c]{@{}l@{}}Blarina \\ brevicauda\end{tabular}} 	&  1		\\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Martes \\ americana\end{tabular}} 	&  150		\\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Plethodon \\ cinereus\end{tabular}} 	&  1		\\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Rana \\ sylvatica\end{tabular}} 			&  1		\\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Ursus\\ americanus\end{tabular}} 		&  1200		\\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{Resistance reclassification key for different forest patches types.}
+\label{tab:hab_or_not}
+\begin{tabular}{lccc}
+\hline
+\textbf{Species} & \textbf{Habitat patch} & \textbf{Habitat patch - too small} & \textbf{Non-habitat patch} \\ \hline 
+\textit{\begin{tabular}[c]{@{}l@{}}Blarina \\ brevicauda\end{tabular}} 	&	1	&	2	&	4	\\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Martes \\ americana\end{tabular}} 	&  1	&	4	&	8	\\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Plethodon \\ cinereus\end{tabular}} 	&  1	&	2	&	4	\\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Rana \\ sylvatica\end{tabular}} 			&  1	&	2	&	4	\\ \hline
+\textit{\begin{tabular}[c]{@{}l@{}}Ursus\\ americanus\end{tabular}} 		&  1	&	4	&	16	\\ \hline
+\end{tabular}
+\end{table}
 
 \newpage
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+% Workshop tables
 
 \chapter*{\textbf{Chapter II Supplementary Material \\ \hspace{1em}}}
 \addcontentsline{toc}{chapter}{Chapter II Supplementary Material}
