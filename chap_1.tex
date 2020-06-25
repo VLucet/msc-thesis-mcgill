@@ -130,7 +130,7 @@ There are a number of ways to evaluate model performance in the context of land 
 
 \subsubsection*{ST-Sim}
 
-ST-Sim (\citep{daniel_state-and-transition_2016})  is a State and Transition model (STM) and can therefore be provided with probabilities of land use change. However in order to integrate the results of our random forest models, we parameterized ST-Sim differently than a classic STM. All probabilities are set to 1, and we leverage the spatial multiplier feature of the software. We provide our fitted probability surfaces (outputs of the RF models) as spatial multipliers. Therefore, each pixel's probability of change is provided by that surface (multiplied by 1).  This is not enough to reproduce past trends in land use change: we need to provide transition targets to the allocation algorithm. These targets are directly based on the amount of land change between 1990 and 2010 for time steps 1990 - 2010.\\
+ST-Sim \citep{daniel_state-and-transition_2016}  is a State and Transition model (STM) and can therefore be provided with probabilities of land use change. However in order to integrate the results of our random forest models, we parameterized ST-Sim differently than a classic STM. All probabilities are set to 1, and we leverage the spatial multiplier feature of the software. We provide our fitted probability surfaces (outputs of the RF models) as spatial multipliers. Therefore, each pixel's probability of change is provided by that surface (multiplied by 1).  This is not enough to reproduce past trends in land use change: we need to provide transition targets to the allocation algorithm. These targets are directly based on the amount of land change between 1990 and 2010 for time steps 1990 - 2010.\\
 
 \subsubsection*{\textit{Model definition}}
 
@@ -225,6 +225,8 @@ For each of the maps produced in the suitability analysis, Circuitscape was run 
 
 \section{Results}
 
+We first describe the results of the preliminary analysis on land use change dynamics, then go on to describe the results of the hybrid land use change and connectivity model.
+
 \subsection{Analysis of past land use changes in Montérégie}
 
 The clustering and subsequent ordination of the land use change matrices of the 177 municipalities revealed that Montérégie has 5 profiles and land compositions (see figures \ref{fig:clustervals}, \ref{fig:PCAvals}, and \ref{fig:mapvals}):
@@ -248,17 +250,25 @@ These results show interesting regional trends with a front line of fragmentatio
 
 \subsection{Random forest Models}
 
-\subsection{Land Use Change Model}
+\subsubsection{Variable importance}
+
+As previously mentioned, the primary goal of this chapter is not to draw strong inference with regards to land use change drivers in the region. It is still worth noting that  the most important variables to predict urbanization and agricultural expansion are the size of forest patches, respectively (see \ref{tab:varimp}). This demonstrates that small patches close to urban areas are the most under threat in the region.  \\
 
 \subsubsection{Model performance}
 
-\subsubsection{Model predictions}
+The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion random forest models are $0.57$ and $0.56$ respectively (see table \ref{tab:R_squares}). The values for AUC are comparatively higher: varying between $0.841$ and $0.931$ (depending of the validation set) for Agricultural Expansion and between $0.921$ and $0.939$ for Urbanisation. The resampled AUC (10-folds CCV) is equally as high with means of $0.929 \pm .002$ and $0.938 \pm 0.002$ (see table \ref{tab:R_squares_resample}).\\ 
+
+\subsection{Land Use Change Model}
+
+%% Descrive results of the model with figures that shows the changes in forest compositions and land use composition.  
 
 \subsection{Connectivity Modelling}
 
-\subsection{Scenario Comparisons}
+%% Show results of historic versus scenarios (make different figure for only this chapter)
 
 \section{Discussion}
+
+% discuss 1) what methodological integration was achieved 2) the limitations of the method and 3) compare and contrast scenarios
 
 \section{Conclusion}
 
@@ -365,3 +375,33 @@ Income & 390.5668 & 1108.612 \\
 \hline
 \end{tabular}
 \end{table}
+
+\begin{table}[!htbp] \centering 
+  \caption{$R^{2}$ values for both models and both validation sets.} 
+  \label{tab:R_squares} 
+\begin{tabular}{@{\extracolsep{5pt}} ccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Model & Validation set & $R^{2}$ & AUC & Average Precision \\ 
+\hline \\[-1.8ex] 
+Agricultural Expansion & Spatial & $0.566$ & $0.931$ & $0.652$ \\ 
+Agricultural Expansion &  Temporal & $0.566$ & $0.841$ & $0.023$ \\ 
+Urbanisation & Spatial & $0.573$ & $0.939$ & $0.234$ \\ 
+Urbanisation & Temporal & $0.573$ & $0.921$ & $0.250$ \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
+
+\begin{table}[!htbp] \centering 
+  \caption{$R^{2}$ values for both models in resampled 10 folds CCV.} 
+  \label{tab:R_squares_resample} 
+\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Model & Mean AUC & Std AUC  \\ 
+\hline \\[-1.8ex] 
+Agricultural Expansion & $0.929$ & $0.002$ \\ 
+Urbanisation & $0.938$ & $0.002$ \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
