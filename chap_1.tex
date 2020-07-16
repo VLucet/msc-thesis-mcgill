@@ -245,7 +245,7 @@ For each of the maps produced in the suitability analysis, Circuitscape was run 
 
 \section{Results}
 
-We first describe the results of the preliminary analysis on land use change dynamics, then go on to describe the results of the hybrid land use change and connectivity model.
+We first describe the results of the preliminary analysis on land use change dynamics, then go on to describe the results of the hybrid land use change and connectivity model.\\
 
 \subsection{Analysis of past land use changes in Montérégie}
 
@@ -276,15 +276,22 @@ As previously mentioned, the primary goal of this chapter is not to draw strong 
 
 \subsubsection{Model performance}
 
-The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion random forest models are $0.57$ and $0.56$ respectively (see table \ref{tab:R_squares}). The values for AUC are comparatively higher: varying between $0.841$ and $0.931$ (depending of the validation set) for Agricultural Expansion and between $0.921$ and $0.939$ for Urbanisation. The resampled AUC (10-folds CCV) is equally as high with means of $0.929 \pm .002$ and $0.938 \pm 0.002$ (see table \ref{tab:R_squares_resample}).\\ 
+The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion random forest models are $0.57$ and $0.56$ respectively (see table \ref{tab:R_squares}). The values for AUC are comparatively higher: varying between $0.841$ and $0.931$ (depending of the validation set) for Agricultural Expansion and between $0.921$ and $0.939$ for Urbanisation. The resampled AUC (10-folds CCV) is equally as high with means of $0.929 \pm .002$ and $0.938 \pm 0.002$ respectively (see table \ref{tab:R_squares_resample} and see \ref{fig:roc_rs} for the ROC curves).\\ 
 
 \subsection{Land Use Change Model}
 
 %% Descrive results of the model with figures that shows the changes in forest compositions and land use composition.  
+\subsubsection{Historic run}
+
+
+\subsubsection{Scenario runs}
 
 \subsection{Connectivity Modelling}
 
 %% Show results of historic versus scenarios (make different figure for only this chapter)
+\subsubsection{Historic run}
+
+\subsubsection{Scenario runs}
 
 \section{Discussion}
 
@@ -374,6 +381,16 @@ The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion r
 \end{figure}
 
 \clearpage
+
+% Other results figures
+%--------------------------------
+\begin{figure}[h]
+\makebox[\textwidth]{
+  \includegraphics[width=1.3\textwidth]{figures/double_roc_resample.png}
+}
+ \caption{ROC Curves for re-samples}
+ \label{fig:roc_rs}
+\end{figure}
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
 % Results tables
