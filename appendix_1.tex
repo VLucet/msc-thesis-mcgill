@@ -5,6 +5,11 @@
 
 \setcounter{chapter}{3}
 \setcounter{table}{0}
+\setcounter{figure}{0}
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+% METHODS CHAP1
+
 %\begin{landscape}
 \begin{longtable}[c]{|p{5cm}|p{11cm}|}
 %\centering
@@ -26,6 +31,7 @@ Black Bear \newline \textit{Ursus americanus} & Large opportunistic omnivorous m
 %\end{landscape}
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
+% RF
 
 % RF variables
 \begin{table}[h!]
@@ -46,7 +52,7 @@ Income &  &  \\
 \end{table}
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
-% STSIM TABLES
+% STSIM
 
 % Neighborhood rules
 
@@ -65,7 +71,7 @@ Forest Internals & Forest (specific type) & 225 & 0.15 \\ \hline
 \end{table}
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
-% Connectivity analyses tables
+% Connectivity analyses
 
 % Habitat suitability 
 
@@ -105,6 +111,8 @@ Forest Internals & Forest (specific type) & 225 & 0.15 \\ \hline
 
 \clearpage
 
+% Minimum patch
+
 \begin{table}[h!]
 \centering
 \caption{Minimum patch size for suitability of a patch in the habitat suitability analysis.}
@@ -119,6 +127,8 @@ Forest Internals & Forest (specific type) & 225 & 0.15 \\ \hline
 \textit{\begin{tabular}[c]{@{}l@{}}Ursus\\ americanus\end{tabular}} 		&  1200		\\ \hline
 \end{tabular}
 \end{table}
+
+% Key patches type
 
 \begin{table}[h!]
 \centering
@@ -136,8 +146,32 @@ Forest Internals & Forest (specific type) & 225 & 0.15 \\ \hline
 \end{table}
 
 \newpage
+
 %---------------------------------------------------------------------------------------------------------------------------------------------------
+% RESULTS CHAP1
+
+% VALUES
+% Clustering
+\begin{figure}[h!]
+\centering
+ \includegraphics[width=\textwidth]{figures/clustering_values.png}
+ \caption{Results of Ward clustering for land use for municipalities (cut at 5 groups)}
+ \label{fig:clustervals}
+\end{figure}
+
+% TRANSITIONS
+
+% Clustering
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=\textwidth]{figures/clustering_trans.png}
+  \caption{Results of Ward clustering for transition data for municipalities (cut at 4 groups)}
+  \label{fig:clustertrans}
+\end{figure}
+
 %---------------------------------------------------------------------------------------------------------------------------------------------------
+% METHODS CHAP2
+
 % Workshop tables
 
 \chapter*{\textbf{Chapter II Supplementary Material \\ \hspace{1em}}}
@@ -189,6 +223,11 @@ Forest Internals & Forest (specific type) & 225 & 0.15 \\ \hline
                        &                              & Terres privées, présence prédominantes              & 3.00  \\ \hline
 \end{tabular}
 \end{table}
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+% RESULTS CHAP2
+
+% Opportunity /challenges
 
 \begin{table}[]
 \centering

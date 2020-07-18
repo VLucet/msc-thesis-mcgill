@@ -272,11 +272,11 @@ These results show interesting regional trends with a front line of fragmentatio
 
 \subsubsection{Variable importance}
 
-As previously mentioned, the primary goal of this chapter is not to draw strong inference with regards to land use change drivers in the region. It is still worth noting that  the most important variables to predict urbanization and agricultural expansion are the size of forest patches, respectively (see \ref{tab:varimp}). This demonstrates that small patches close to urban areas are the most under threat in the region.  \\
+As previously mentioned, the primary goal of this chapter is not to draw strong inference with regards to land use change drivers in the region. It is still worth noting that  the most important variables to predict urbanization and agricultural expansion in our model are the distance from urban land and size of forest patches, respectively (see \ref{tab:varimp}). This demonstrates that small patches close to urban areas are the most under threat of conversion in the region.  \\
 
 \subsubsection{Model performance}
 
-The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion random forest models are $0.57$ and $0.56$ respectively (see table \ref{tab:R_squares}). The values for AUC are comparatively higher: varying between $0.841$ and $0.931$ (depending of the validation set) for Agricultural Expansion and between $0.921$ and $0.939$ for Urbanisation. The resampled AUC (10-folds CCV) is equally as high with means of $0.929 \pm .002$ and $0.938 \pm 0.002$ respectively (see table \ref{tab:R_squares_resample} and see \ref{fig:roc_rs} for the ROC curves).\\ 
+The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion random forest models are $0.57$ and $0.56$ respectively. The values for AUC are comparatively higher: varying between $0.841$ and $0.931$ (depending of the validation set) for Agricultural Expansion and between $0.921$ and $0.939$ for Urbanisation (see figures \ref{fig:roc_agex} and \ref{fig:roc_urb} for the spatial validation ROC curves, and see summary table \ref{tab:R_squares_AUC}). The resampled AUC (10-folds CCV) is equally as high with means of $0.929 \pm .002$ and $0.938 \pm 0.002$ respectively (see figure \ref{fig:roc_rs} for the 10-fold ROC curves).\\ 
 
 \subsection{Land Use Change Model}
 
@@ -293,6 +293,7 @@ The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion r
 
 \subsubsection{Scenario runs}
 
+%---------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Discussion}
 
 % discuss 1) what methodological integration was achieved 2) the limitations of the method and 3) compare and contrast scenarios
@@ -331,13 +332,8 @@ The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion r
 % Results figures
 
 % Figures: values
-% Clustering
-\begin{figure}[h!]
-\centering
- \includegraphics[width=\textwidth]{figures/clustering_values.png}
- \caption{Results of Ward clustering for land use for municipalities (cut at 5 groups)}
- \label{fig:clustervals}
-\end{figure}
+
+% Clustering moved to appendix
 
 % PCA
 \begin{figure}[h!]
@@ -356,13 +352,6 @@ The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion r
 \end{figure}
 
 % Figures: Transitions
-% Clustering
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=\textwidth]{figures/clustering_trans.png}
-  \caption{Results of Ward clustering for transition data for municipalities (cut at 4 groups)}
-  \label{fig:clustertrans}
-\end{figure}
 
 % PCA
 \begin{figure}[h!]
@@ -384,7 +373,8 @@ The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion r
 
 % Other results figures
 %--------------------------------
-\begin{figure}[h]
+%  Resample, figure and table
+\begin{figure}[h!]
 \makebox[\textwidth]{
   \includegraphics[width=1.3\textwidth]{figures/double_roc_resample.png}
 }
@@ -392,8 +382,41 @@ The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion r
  \label{fig:roc_rs}
 \end{figure}
 
+\begin{figure}[h!]
+\makebox[\textwidth]{
+  \includegraphics[width=\textwidth]{figures/rf_ratio_2_agex_roc.png}
+}
+ \caption{ROC Curve for Agricultural Expansion}
+ \label{fig:roc_agex}
+\end{figure}
+
+\begin{figure}[h!]
+\makebox[\textwidth]{
+  \includegraphics[width=\textwidth]{figures/rf_ratio_2_urb_roc.png}
+}
+ \caption{ROC Curve for urbanisation}
+ \label{fig:roc_urb}
+\end{figure}
+
 %---------------------------------------------------------------------------------------------------------------------------------------------------
-% Results tables
+% Other Tables
+
+% Model validation
+\begin{table}[!htbp] \centering 
+  \caption{$R^{2}$ values for both models and both validation sets.} 
+  \label{tab:R_squares_AUC} 
+\begin{tabular}{@{\extracolsep{5pt}} ccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Model & Validation set & $R^{2}$ & AUC & Average Precision \\ 
+\hline \\[-1.8ex] 
+Agricultural Expansion & Spatial & $0.566$ & $0.931$ & $0.652$ \\ 
+Agricultural Expansion &  Temporal & $0.566$ & $0.841$ & $0.023$ \\ 
+Urbanisation & Spatial & $0.573$ & $0.939$ & $0.234$ \\ 
+Urbanisation & Temporal & $0.573$ & $0.921$ & $0.250$ \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
 
 % RF Variable importance
 \begin{table}[h!]
@@ -413,32 +436,4 @@ Income & 390.5668 & 1108.612 \\
 \end{tabular}
 \end{table}
 
-\begin{table}[!htbp] \centering 
-  \caption{$R^{2}$ values for both models and both validation sets.} 
-  \label{tab:R_squares} 
-\begin{tabular}{@{\extracolsep{5pt}} ccccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
-Model & Validation set & $R^{2}$ & AUC & Average Precision \\ 
-\hline \\[-1.8ex] 
-Agricultural Expansion & Spatial & $0.566$ & $0.931$ & $0.652$ \\ 
-Agricultural Expansion &  Temporal & $0.566$ & $0.841$ & $0.023$ \\ 
-Urbanisation & Spatial & $0.573$ & $0.939$ & $0.234$ \\ 
-Urbanisation & Temporal & $0.573$ & $0.921$ & $0.250$ \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
-\end{table} 
-
-\begin{table}[!htbp] \centering 
-  \caption{$R^{2}$ values for both models in resampled 10 folds CCV.} 
-  \label{tab:R_squares_resample} 
-\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
-Model & Mean AUC & Std AUC  \\ 
-\hline \\[-1.8ex] 
-Agricultural Expansion & $0.929$ & $0.002$ \\ 
-Urbanisation & $0.938$ & $0.002$ \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
-\end{table} 
+\clearpage
