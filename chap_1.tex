@@ -280,21 +280,20 @@ The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion r
 
 \subsection{Land Use Change Model}
 
-%% Descrive results of the model with figures that shows the changes in forest compositions and land use composition.  
 \subsubsection{Historic run}
 
+Our land use change model managed to match appropriately the amount of change observed in the region (i.e. the number of pixel that transitioned between two time steps). However, it only managed to approximate the spatial patterns of change in the region, as can be seen in figures \ref{fig:compare_urb} and \ref{fig:compare_agex}, where predictions from all iterations were averaged into one prediction surface. The patterns of change around built areas is rather fuzzily matched, with a large number of pixel with a small probability of change, indicating low certainty in most of the model predictions. Although the predictions retain a rather high AUC ($0.858$ for agricultural expansion and $0.784$ for urbanization), they achieve low average precision ($0.383$ for agricultural expansion and $0.287$ for urbanization). These numbers drop even lower if AUC and precision are calculated on a per-iteration basis and then averaged (see \ref{} for a detailed breakdown).  On the one hand, this can be seen as a sign that the model did not over-fit the data. On the other hand, it is difficult to know at which point a land use change model has under-fitted the data, and therefore we should not hold too much confidence in the fact that our model has been able to accurately replicate the land use change patterns observed  between 1990 and 2010. Instead, the model should be considered as an approximation and a generalization of the patterns that are observed in the region. \\
 
-\subsubsection{Scenario runs}
-
+\subsubsection{Business as Usual (BAU) scenario}
+% describe what happened, what is the new distribution of land => maybe add paragraph on forest change
 
 \subsection{Connectivity Modelling}
 
-%% Show results of historic versus scenarios (make different figure for only this chapter)
 \subsubsection{Historic run}
-
-
+% while the model only fizzily replicated the patterns, its capacity to replciate mean flow is better. However, it is important to note that mean is not good measure (see histogram) hence we should compare the histograms !!! New figure to make here. 
 
 \subsubsection{Scenario runs}
+% Describe all the figures : one paragraph, one figure
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Discussion}
@@ -407,6 +406,24 @@ The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion r
 \end{figure}
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
+% Historic model 
+\begin{figure}[h!]
+\makebox[\textwidth]{
+  \includegraphics[width=\textwidth]{figures/historic_compare_urb.png}
+}
+ \caption{Comparison between mean probability of urbanization and actual urbanization observed between 1990 and 2010.}
+ \label{fig:compare_urb}
+\end{figure}
+
+\begin{figure}[h!]
+\makebox[\textwidth]{
+  \includegraphics[width=\textwidth]{figures/historic_compare_agex.png}
+}
+ \caption{Comparison between mean probability of agricultural expansion and actual agricultural expansion observed between 1990 and 2010.}
+ \label{fig:compare_agex}
+\end{figure}
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
 % Flow
 
 % Historic
@@ -512,5 +529,10 @@ Income & 390.5668 & 1108.612 \\
 \hline
 \end{tabular}
 \end{table}
+
+% Historic model metrics
+
+%\label{\label{tab:historic_metrics}} 
+%TODO Make table with help of website right here
 
 \clearpage
