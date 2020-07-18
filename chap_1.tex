@@ -286,10 +286,13 @@ The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion r
 
 \subsubsection{Scenario runs}
 
+
 \subsection{Connectivity Modelling}
 
 %% Show results of historic versus scenarios (make different figure for only this chapter)
 \subsubsection{Historic run}
+
+
 
 \subsubsection{Scenario runs}
 
@@ -308,7 +311,7 @@ The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion r
 \end{center}
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
-% methods figures %TODO better caption describing colors
+% methods figures %TODO better captions
 
 \begin{figure}[h]
 \makebox[\textwidth]{
@@ -371,8 +374,9 @@ The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion r
 
 \clearpage
 
-% Other results figures
-%--------------------------------
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+% ROC 
+
 %  Resample, figure and table
 \begin{figure}[h!]
 \makebox[\textwidth]{
@@ -382,6 +386,8 @@ The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion r
  \label{fig:roc_rs}
 \end{figure}
 
+% Agex
+
 \begin{figure}[h!]
 \makebox[\textwidth]{
   \includegraphics[width=\textwidth]{figures/rf_ratio_2_agex_roc.png}
@@ -390,6 +396,8 @@ The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion r
  \label{fig:roc_agex}
 \end{figure}
 
+% Urb
+
 \begin{figure}[h!]
 \makebox[\textwidth]{
   \includegraphics[width=\textwidth]{figures/rf_ratio_2_urb_roc.png}
@@ -397,6 +405,75 @@ The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion r
  \caption{ROC Curve for urbanisation}
  \label{fig:roc_urb}
 \end{figure}
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+% Flow
+
+% Historic
+\begin{figure}[h!]
+\makebox[\textwidth]{
+  \includegraphics[width=\textwidth]{figures/connectivity_decrease_x5species_historic.png}
+}
+ \caption{Change in mean flow (in \% of the the 1990 flow) between 1990 and 2010, contrasting observed change and simulated chnage.}
+ \label{fig:flow_historic}
+\end{figure}
+
+% Linear
+\begin{figure}[h!]
+\makebox[\textwidth]{
+  \includegraphics[width=\textwidth]{figures/connectivity_decrease_x5species_chap1.png}
+}
+ \caption{Change in mean flow (in \% of the the 2010 flow) between 2010 and 2100, contrasting BAU scenario (solid line) with other land use change scenarios.}
+ \label{fig:flow_linear_1}
+\end{figure}
+
+% Radar
+\begin{figure}[h!]
+\makebox[\textwidth]{
+  \includegraphics[width=\textwidth]{figures/radar_ggradar_chap1.png}
+}
+ \caption{Change in mean flow (in \% of the the 2010 flow) between 2010 and 2100, contrasting BAU scenario (solid line) with other land use change scenarios.}
+ \label{fig:flow_radar_1}
+\end{figure}
+
+% Histograms
+\begin{figure}[h!]
+\makebox[\textwidth]{
+  \includegraphics[width=\textwidth]{figures/hist_chap1.png}
+}
+ \caption{Histograms of flow values change.}
+ \label{fig:hist_1}
+\end{figure}
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+% SURF
+
+% Linear
+\begin{figure}[h!]
+\makebox[\textwidth]{
+  \includegraphics[width=\textwidth]{figures/surf_chap1.png}
+}
+ \caption{Change in identified features (partly pinch-points.}
+ \label{fig:surf_linear_1}
+\end{figure}
+
+% Radar
+\begin{figure}[h!]
+\makebox[\textwidth]{
+  \includegraphics[width=\textwidth]{figures/surf_radar_chap1.png}
+}
+ \caption{Change in identified features (partly pinch-points.}
+ \label{fig:surf_radar_1}
+\end{figure}
+
+%\begin{figure}[h!]
+%\makebox[\textwidth]{
+%  \includegraphics[width=\textwidth]{figures/.png}
+%}
+% \caption{}
+% \label{fig:}
+%\end{figure}
+
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
 % Other Tables
