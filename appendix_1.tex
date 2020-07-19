@@ -34,6 +34,7 @@ Black Bear \newline \textit{Ursus americanus} & Large opportunistic omnivorous m
 % RF
 
 % RF variables
+
 \begin{table}[h!]
 \centering
 \caption{Description and data sources for all variables used in the RF-CA model}
@@ -151,7 +152,9 @@ Forest Internals & Forest (specific type) & 225 & 0.15 \\ \hline
 % RESULTS CHAP1
 
 % VALUES
+
 % Clustering
+
 \begin{figure}[h!]
 \centering
  \includegraphics[width=\textwidth]{figures/clustering_values.png}
@@ -162,12 +165,48 @@ Forest Internals & Forest (specific type) & 225 & 0.15 \\ \hline
 % TRANSITIONS
 
 % Clustering
+
 \begin{figure}[h!]
   \centering
     \includegraphics[width=\textwidth]{figures/clustering_trans.png}
   \caption{Results of Ward clustering for transition data for municipalities (cut at 4 groups)}
   \label{fig:clustertrans}
 \end{figure}
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+% ROC Curves
+
+% Agex
+
+\begin{figure}[h!]
+\makebox[\textwidth]{
+  \includegraphics[width=\textwidth]{figures/rf_ratio_2_agex_roc.png}
+}
+ \caption{ROC Curve for Agricultural Expansion}
+ \label{fig:roc_agex}
+\end{figure}
+
+% Urb
+
+\begin{figure}[h!]
+\makebox[\textwidth]{
+  \includegraphics[width=\textwidth]{figures/rf_ratio_2_urb_roc.png}
+}
+ \caption{ROC Curve for urbanisation}
+ \label{fig:roc_urb}
+\end{figure}
+
+%  Resample, figure and table
+
+\begin{figure}[h!]
+\makebox[\textwidth]{
+  \includegraphics[width=1.3\textwidth]{figures/double_roc_resample.png}
+}
+ \caption{ROC Curves for re-samples}
+ \label{fig:roc_rs}
+\end{figure}
+
+\newpage
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
 % METHODS CHAP2

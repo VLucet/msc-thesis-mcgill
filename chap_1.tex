@@ -297,7 +297,7 @@ In the case of the Reforestation (R) scenario, which allows urban land to contin
 
 \subsubsection*{Historic run (1990 - 2010)} %TODO make a figure with histograms
 
-While our land use change model only managed to approximate the spatial patterns in land use change, it better managed to replicate the observed change in mean current flow in the region. Figure \ref{fig:flow_historic} illustrate that the model results are close to the observed changes. Whereas we observe a drop in about $1.5$ to $3$ \% in mean flow (depending on the species), the model tends to overestimate the drop, and the difference in estimation range from $0.5$ to $1$ points. However, it is clear that given the distribution of flow values in the region, the mean is not capturing all of the nuances in the model predictions. As it can be seen in the histograms of the flow values in figure \ref{}. \\ %TODO here discuss whether the histogram is matched. 
+While our land use change model only managed to approximate the spatial patterns in land use change, it better managed to replicate the observed change in mean current flow in the region. Figure \ref{fig:flow_historic} illustrate that the model results are close to the observed changes. Whereas we observe a drop in about $1.5$ to $3$ \% in mean flow (depending on the species), the model tends to overestimate the drop, and the difference in estimation range from $0.5$ to $1$ points. However, it is clear that given the distribution of flow values in the region, the mean is not capturing all of the nuances in the model predictions. As it can be seen in the histograms of the flow values in figure \ref{hist_historic}. \\ %TODO here discuss whether the histogram is matched. 
 
 \subsubsection*{Scenario runs (2010 - 2100)}
 % Describe all the figures : one paragraph, one figure. 1:flow, (then mention radar) 2: histograms
@@ -392,36 +392,9 @@ Finally, it is important to remark on the extremely low uncertainty around the l
 \clearpage
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
-% ROC 
+% ROC => curves in the appendix
 
-%  Resample, figure and table
-\begin{figure}[h!]
-\makebox[\textwidth]{
-  \includegraphics[width=1.3\textwidth]{figures/double_roc_resample.png}
-}
- \caption{ROC Curves for re-samples}
- \label{fig:roc_rs}
-\end{figure}
 
-% Agex
-
-\begin{figure}[h!]
-\makebox[\textwidth]{
-  \includegraphics[width=\textwidth]{figures/rf_ratio_2_agex_roc.png}
-}
- \caption{ROC Curve for Agricultural Expansion}
- \label{fig:roc_agex}
-\end{figure}
-
-% Urb
-
-\begin{figure}[h!]
-\makebox[\textwidth]{
-  \includegraphics[width=\textwidth]{figures/rf_ratio_2_urb_roc.png}
-}
- \caption{ROC Curve for urbanisation}
- \label{fig:roc_urb}
-\end{figure}
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
 % Historic model 
@@ -448,9 +421,21 @@ Finally, it is important to remark on the extremely low uncertainty around the l
 %TODO add figure showing change at the horizon 2100 for business as usual
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
+% Histogram historic
+
+\begin{figure}[h!]
+\makebox[\textwidth]{
+  \includegraphics[width=\textwidth]{figures/original_hists.png}
+}
+ \caption{Histograms of flow values change between 1990 and 2010.}
+ \label{fig:hist_historic}
+\end{figure}
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
 % Flow
 
 % Historic
+
 \begin{figure}[h!]
 \makebox[\textwidth]{
   \includegraphics[width=\textwidth]{figures/connectivity_decrease_x5species_historic.png}
@@ -460,6 +445,7 @@ Finally, it is important to remark on the extremely low uncertainty around the l
 \end{figure}
 
 % Linear
+
 \begin{figure}[h!]
 \makebox[\textwidth]{
   \includegraphics[width=\textwidth]{figures/connectivity_decrease_x5species_chap1.png}
@@ -469,6 +455,7 @@ Finally, it is important to remark on the extremely low uncertainty around the l
 \end{figure}
 
 % Radar
+
 \begin{figure}[h!]
 \makebox[\textwidth]{
   \includegraphics[width=\textwidth]{figures/radar_ggradar_chap1.png}
@@ -478,6 +465,7 @@ Finally, it is important to remark on the extremely low uncertainty around the l
 \end{figure}
 
 % Histograms
+
 \begin{figure}[h!]
 \makebox[\textwidth]{
   \includegraphics[width=\textwidth]{figures/hist_chap1.png}
@@ -490,6 +478,7 @@ Finally, it is important to remark on the extremely low uncertainty around the l
 % SURF
 
 % Linear
+
 \begin{figure}[h!]
 \makebox[\textwidth]{
   \includegraphics[width=\textwidth]{figures/surf_chap1.png}
@@ -499,6 +488,7 @@ Finally, it is important to remark on the extremely low uncertainty around the l
 \end{figure}
 
 % Radar
+
 \begin{figure}[h!]
 \makebox[\textwidth]{
   \includegraphics[width=\textwidth]{figures/surf_radar_chap1.png}
@@ -519,7 +509,8 @@ Finally, it is important to remark on the extremely low uncertainty around the l
 %---------------------------------------------------------------------------------------------------------------------------------------------------
 % Other Tables
 
-% Model validation
+% R squares and AUC
+
 \begin{table}[!htbp] \centering 
   \caption{$R^{2}$ values for both models and both validation sets.} 
   \label{tab:R_squares_AUC} 
@@ -536,7 +527,24 @@ Urbanization & Temporal & $0.573$ & $0.921$ & $0.250$ \\
 \end{tabular} 
 \end{table} 
 
+% R square resample
+
+\begin{table}[!htbp] \centering 
+  \caption{$R^{2}$ values for both models in resampled 10 folds CCV.} 
+  \label{tab:R_squares_resample} 
+\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Model & Mean AUC & Std AUC  \\ 
+\hline \\[-1.8ex] 
+Agricultural Expansion & $0.929$ & $0.002$ \\ 
+Urbanisation & $0.938$ & $0.002$ \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
+
 % RF Variable importance
+
 \begin{table}[h!]
 \centering
 \caption{Variable importance (gini impurity index) for both models - non-categorical variables only}
