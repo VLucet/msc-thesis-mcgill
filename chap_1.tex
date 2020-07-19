@@ -276,15 +276,15 @@ As previously mentioned, the primary goal of this chapter is not to draw strong 
 
 \subsubsection{Model performance}
 
-The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion random forest models are $0.57$ and $0.56$ respectively. The values for AUC are comparatively higher: varying between $0.841$ and $0.931$ (depending of the validation set) for Agricultural Expansion and between $0.921$ and $0.939$ for Urbanization (see figures \ref{fig:roc_agex} and \ref{fig:roc_urb} for the spatial validation ROC curves, and see summary table \ref{tab:R_squares_AUC}). The resampled AUC (10-folds CCV) is equally as high with means of $0.929 \pm .002$ and $0.938 \pm 0.002$ respectively (see figure \ref{fig:roc_rs} for the 10-fold ROC curves).\\ 
+The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion random forest models are $0.57$ and $0.56$ respectively. The values for AUC are comparatively higher: varying between $0.841$ and $0.931$ (depending of the validation set) for Agricultural Expansion and between $0.921$ and $0.939$ for Urbanization (see summary table \ref{tab:R_squares_AUC} and see figures \ref{fig:roc_agex} and \ref{fig:roc_urb} for the spatial validation ROC curves). The resampled AUC (10-folds CCV) is equally as high with means of $0.929 \pm .002$ and $0.938 \pm 0.002$ respectively (see figure \ref{fig:roc_rs} for the 10-fold ROC curves).\\ 
 
 \subsection{Land Use Change Model}
 
 \subsubsection*{Historic run (1990 - 2010)} %TODO make a table here
 
-Our land use change model managed to match appropriately the amount of change observed in the region (i.e. the number of pixel that transitioned between two time steps). However, it only managed to approximate the spatial patterns of change in the region, as can be seen in figures \ref{fig:compare_urb} and \ref{fig:compare_agex}, where predictions from all iterations were averaged into one prediction surface. The patterns of change around built areas is rather fuzzily matched, with a large number of pixel with a small probability of change, indicating low certainty in most of the model predictions. Although the predictions retain a rather high AUC ($0.858$ for agricultural expansion and $0.784$ for urbanization), they achieve low average precision ($0.383$ for agricultural expansion and $0.287$ for urbanization). These numbers drop even lower if AUC and precision are calculated on a per-iteration basis and then averaged (see \ref{} for a detailed breakdown).  On the one hand, this can be seen as a sign that the model did not over-fit the data. On the other hand, it is difficult to know at which point a land use change model has under-fitted the data, and therefore we should not hold too much confidence in the fact that our model has been able to accurately replicate the land use change patterns observed  between 1990 and 2010. Instead, the model should be considered as an approximation and a generalization of the patterns that are observed in the region. \\
+Our land use change model managed to match appropriately the amount of change observed in the region (i.e. the number of pixel that transitioned between two time steps). However, it only managed to approximate the spatial patterns of change in the region, as can be seen in figures \ref{fig:compare_urb} and \ref{fig:compare_agex}, where predictions from all iterations were averaged into one prediction surface. The patterns of change around built areas is rather fuzzily matched, with a large number of pixel with a small probability of change, indicating low certainty in most of the model predictions. Although the predictions retain a rather high AUC ($0.858$ for agricultural expansion and $0.784$ for urbanization), they achieve low average precision ($0.383$ for agricultural expansion and $0.287$ for urbanization). These numbers drop even lower if AUC and precision are calculated on a per-iteration basis and then averaged (see \ref{tab:historic_metrics} for a detailed breakdown).  On the one hand, this can be seen as a sign that the model did not over-fit the data. On the other hand, it is difficult to know at which point a land use change model has under-fitted the data, and therefore we should not hold too much confidence in the fact that our model has been able to accurately replicate the land use change patterns observed  between 1990 and 2010. Instead, the model should be considered as an approximation and a generalization of the patterns that are observed in the region. \\
 
-\subsubsection*{Scenario runs (2010 - 2100)s} 
+\subsubsection*{Scenario runs (2010 - 2100)} 
 %TODO make bar chart figures, with maps
 % describe what happened, what is the new distribution of land 
 % maybe add paragraph on forest change
@@ -392,9 +392,75 @@ Finally, it is important to remark on the extremely low uncertainty around the l
 \clearpage
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
-% ROC => curves in the appendix
+% Model tables (roc curves moved to the appendix)
 
+% RF Variable importance
 
+\begin{table}[h!]
+\centering
+\caption{Variable importance (gini impurity index) for both models - non-categorical variables only}
+\label{tab:varimp}
+\begin{tabular}{lcc}
+\hline
+\hline
+\multicolumn{1}{c}{\multirow{2}{*}{Variable}} & \multicolumn{2}{c}{Model} \\ \cline{2-3} 
+\multicolumn{1}{c}{} & \multicolumn{1}{l}{Urbanisation} & \multicolumn{1}{l}{Agricultural expansion} \\ \hline
+Distance from urban land & 756.8292 & 1787.357 \\
+Size of forest patch & 548.5826 & 5373.270 \\
+Elevation & 580.9726 & 1823.918 \\
+Population change & 447.1120 & 1138.319 \\
+Income & 390.5668 & 1108.612 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+% R squares and AUC
+
+\begin{table}[!htbp] \centering 
+  \caption{$R^{2}$, AUC, and average precision values for both models and both validation sets.} 
+  \label{tab:R_squares_AUC} 
+\begin{tabular}{@{\extracolsep{5pt}} ccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Model & Validation set & $R^{2}$ & AUC & Average Precision \\ 
+\hline \\[-1.8ex] 
+Agricultural Expansion & Spatial & $0.566$ & $0.931$ & $0.652$ \\ 
+Agricultural Expansion &  Temporal & $0.566$ & $0.841$ & $0.023$ \\ 
+Urbanization & Spatial & $0.573$ & $0.939$ & $0.234$ \\ 
+Urbanization & Temporal & $0.573$ & $0.921$ & $0.250$ \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
+
+% R square resample
+
+\begin{table}[!htbp] \centering 
+\caption{AUC values for both models in resampled 10 folds CCV.} 
+\label{tab:R_squares_resample} 
+\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Model & Mean AUC +/- Std \\ 
+\hline \\[-1.8ex] 
+Agricultural Expansion & $0.929 \pm 0.002$ \\ 
+Urbanisation & $0.938 \pm 0.002$ \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
+
+% Historic model metrics
+
+\begin{table}[!htbp] \centering
+\caption{test} 
+\label{tab:historic_metrics} 
+\begin{tabular}{lcccc}
+\hline
+\hline
+\multicolumn{1}{c}{Model} & \begin{tabular}[c]{@{}c@{}}Mean AUC\\ (Averaged \\ Surface)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Mean Precision\\ (Averaged \\ Surface)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Mean AUC +/- Std\\ (All iterations \\ averaged)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Mean Precision +/- Std\\ (All Iterations \\ averaged)\end{tabular} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Agricultural \\ Expansion\end{tabular} & $0.858$ & $0.383$ & $0.669 \pm 0.001$ & $0.105 \pm 0.001$ \\
+Urbanisation & $0.784$ & $0.287$ & $0.618 \pm 0.001$ & $0.102 \pm 0.001$ \\ \hline
+\end{tabular}
+\end{table}
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
 % Historic model 
@@ -483,7 +549,7 @@ Finally, it is important to remark on the extremely low uncertainty around the l
 \makebox[\textwidth]{
   \includegraphics[width=\textwidth]{figures/surf_chap1.png}
 }
- \caption{Change in identified features (partly pinch-points.}
+ \caption{Change in identified features (partly pinch-points).}
  \label{fig:surf_linear_1}
 \end{figure}
 
@@ -504,67 +570,5 @@ Finally, it is important to remark on the extremely low uncertainty around the l
 % \caption{}
 % \label{fig:}
 %\end{figure}
-
-
-%---------------------------------------------------------------------------------------------------------------------------------------------------
-% Other Tables
-
-% R squares and AUC
-
-\begin{table}[!htbp] \centering 
-  \caption{$R^{2}$ values for both models and both validation sets.} 
-  \label{tab:R_squares_AUC} 
-\begin{tabular}{@{\extracolsep{5pt}} ccccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
-Model & Validation set & $R^{2}$ & AUC & Average Precision \\ 
-\hline \\[-1.8ex] 
-Agricultural Expansion & Spatial & $0.566$ & $0.931$ & $0.652$ \\ 
-Agricultural Expansion &  Temporal & $0.566$ & $0.841$ & $0.023$ \\ 
-Urbanization & Spatial & $0.573$ & $0.939$ & $0.234$ \\ 
-Urbanization & Temporal & $0.573$ & $0.921$ & $0.250$ \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
-\end{table} 
-
-% R square resample
-
-\begin{table}[!htbp] \centering 
-  \caption{$R^{2}$ values for both models in resampled 10 folds CCV.} 
-  \label{tab:R_squares_resample} 
-\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
-Model & Mean AUC & Std AUC  \\ 
-\hline \\[-1.8ex] 
-Agricultural Expansion & $0.929$ & $0.002$ \\ 
-Urbanisation & $0.938$ & $0.002$ \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
-\end{table} 
-
-% RF Variable importance
-
-\begin{table}[h!]
-\centering
-\caption{Variable importance (gini impurity index) for both models - non-categorical variables only}
-\label{tab:varimp}
-\begin{tabular}{lcc}
-\hline
-\multicolumn{1}{c}{\multirow{2}{*}{\textbf{Variable}}} & \multicolumn{2}{c}{\textbf{Model}} \\ \cline{2-3} 
-\multicolumn{1}{c}{} & \multicolumn{1}{l}{\textbf{Urbanisation}} & \multicolumn{1}{l}{\textbf{Agricultural expansion}} \\ \hline
-Distance from urban land & 756.8292 & 1787.357 \\
-Size of forest patch & 548.5826 & 5373.270 \\
-Elevation & 580.9726 & 1823.918 \\
-Population change & 447.1120 & 1138.319 \\
-Income & 390.5668 & 1108.612 \\ 
-\hline
-\end{tabular}
-\end{table}
-
-% Historic model metrics
-
-%\label{\label{tab:historic_metrics}} 
-%TODO Make table with help of website right here
 
 \clearpage
