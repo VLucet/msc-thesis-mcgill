@@ -233,7 +233,7 @@ Habitat suitability analysis consists in reclassifying land use data into a resi
 \item Patch the re-classified non-forest map with the re-classified patches map.  
 \end{enumerate}
 
-Although these steps build on the work of \cite{albert_applying_2017} and \cite{rayfield_priorisation_2018}, we apply a simpler habitat suitability modeling workflow. There are a number of reasons for why we were not able to apply the exact same workflow as  in \citeauthor{rayfield_priorisation_2018}. First, the resolution of the land use change data differs: we used a 90m resolution versus a 30m resolution for \citeauthor{rayfield_priorisation_2018}. This has implications for the minimum patch size required for the two species (\textit{Blarina} and \textit{Plethodon}) which at the resolution of 90m becomes impossible to differentiate. In addition, we did not include a range of variables that were used in \citeauthor{rayfield_priorisation_2018}: forest density, soil drainage, distance from minor versus major roads,   \\
+Although these steps build on the work of \cite{albert_applying_2017} and \cite{rayfield_priorisation_2018}, we apply a simpler habitat suitability modeling workflow. There are a number of reasons for why we were not able to apply the exact same workflow as  in \citeauthor{rayfield_priorisation_2018}. First, the resolution of the land use change data differs: we used a 90m resolution versus a 30m resolution for \citeauthor{rayfield_priorisation_2018}. This has implications for the minimum patch size required for the two species (\textit{Blarina} and \textit{Plethodon}) which at the resolution of 90m becomes impossible to differentiate. In addition, we did not include a range of variables that were used in \citeauthor{rayfield_priorisation_2018}: forest density, soil drainage, distance from minor versus major roads, distance from wetlands, etc.\\
 
 \subsubsection{Connectivity analysis}
 
@@ -241,7 +241,15 @@ Methods of connectivity modeling are grounded in important concepts, the most im
 
 In this paper, we analyze connectivity using circuit theory-based software called Circuitscape. Circuit theory is used to simulate the movement of propagules. The software “borrows algorithms from electronic circuit theory to predict connectivity in heterogeneous landscapes''. It is a free and open software under MIT license developed originally in Python, and now in its 5th version, in Julia \citep{circuitjulia}.
 
-For each of the maps produced in the suitability analysis, Circuitscape was run in two directions (“wall to wall” run, \cite{mcrae_conserving_2016}): east to west and north to south. This method allowed us to model omnidirectional animal movements, and required that we added the resulting North/South and East/West flow map. The results for each map were therefore added to produce a final set of flow maps for analysis. From these flow maps, we extracted the mean flow for each of the municipalities and for the entire flow map. \\
+For each of the maps produced in the suitability analysis, Circuitscape was run in two directions (“wall to wall” run, \cite{mcrae_conserving_2016}): east to west and north to south. This method allowed us to model omnidirectional animal movements, and required that we added the resulting North/South and East/West flow map. The results for each map were therefore added to produce a final set of flow maps for analysis. From these flow maps, we extracted the mean flow for each of the municipalities and for the entire flow map. In addition, we extracted the distribution (logged) of pixel flow values under the form of histograms. \\
+
+\subsubsection*{Flow feature and pinch point detection}
+
+In an attempt to go beyond the simple analysis of current flow value, we aimed at reproducing the workflow for pinch point analysis laid out in \cite{pelletier_forest_2017}. In their analysis of connectivity at the scale of Canada, using Circuitscape \citeauthor{pelletier_forest_2017} used the SURF alogorithm (Speedep Up Robust Features) to detect narrow regions of high contrast in the flow surface (or "pinch points", as described in \cite{mcrae_using_2008}). SURF is a computer vision algorithm used to reliably detect and match features in images, regardless of their orientation (see \cite{leonardis_surf_2006} for an in-depth description of the algorithm). We attempted to reproduce the results of \citeauthor{pelletier_forest_2017}, although no code was available. We use the OpenCV4 python Library implementation of the SURF software.
+
+In order to get to a certain level of reliability in the results, it was found that it was important to equalize the histograms of pixel flow values. But even with this helpful modification to the flow surfaces, it was difficult to accurately identify pinch points in images. However, we think that this step still served to identify and detect relevant flow features in the images. In their implementation of the method, \citeauthor{pelletier_forest_2017} mention that SURf could possibly be able to serve as a measure of "flow complexity". Therefore, we hope this step of the analysis can serve as a way to measure the changes in complexity of the flow that are brought under different scenarios. We recognize the limitations of this method and want to at least provide an interesting use case for the application of computer vision methods to connectivity analyses. 
+
+Following the advice in \citeauthor{pelletier_forest_2017}, we ran SURF for each of our flow surfaces and counted up the number of features identified, using it as a measure of flow complexity. Some of those features include identified pinch points. As mentioned by the authors, there exists no guidelines to parameterize SURF for pinch-point detection. We decided on our parameters by testing multiple values and visually assessing the results. The parameters used for the SURF analysis can be found in table \ref{tab:surf}.\\
 
 \section{Results}
 
@@ -284,25 +292,25 @@ The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion r
 
 Our land use change model managed to match appropriately the amount of change observed in the region (i.e. the number of pixel that transitioned between two time steps). However, it only managed to approximate the spatial patterns of change in the region, as can be seen in figures \ref{fig:compare_urb} and \ref{fig:compare_agex}, where predictions from all iterations were averaged into one prediction surface. The patterns of change around built areas is rather fuzzily matched, with a large number of pixel with a small probability of change, indicating low certainty in most of the model predictions. Although the predictions retain a rather high AUC ($0.858$ for agricultural expansion and $0.784$ for urbanization), they achieve low average precision ($0.383$ for agricultural expansion and $0.287$ for urbanization). These numbers drop even lower if AUC and precision are calculated on a per-iteration basis and then averaged (see \ref{tab:historic_metrics} for a detailed breakdown).  On the one hand, this can be seen as a sign that the model did not over-fit the data. On the other hand, it is difficult to know at which point a land use change model has under-fitted the data, and therefore we should not hold too much confidence in the fact that our model has been able to accurately replicate the land use change patterns observed  between 1990 and 2010. Instead, the model should be considered as an approximation and a generalization of the patterns that are observed in the region. \\
 
-\subsubsection*{Scenario runs (2010 - 2100)} 
-%TODO make bar chart figures??
-% describe what happened, what is the new distribution of land 
-% maybe add paragraph on forest change
+\subsubsection*{Scenario runs (2010 - 2100)}  
 
-With the results of the Business as Usual scenario (BAU), we can give an idea of what the region will look like in 2100, if the same rate of urbanization, agricultural expansion and deforestation remain on par with the rates of 1990-2010. The projected land use at the 2100 horizon, as can be seen in \ref{fig:BAU_compare}, shows that most of the small remaining forest patches among the agricultural matrix have been replaced by agriculture, and that most of the urban centers have grown, leading to deforestation even in bigger patches surrounding urban zones. The two trends in terms of development are the expansion of the cities on the south shore of the Saint Lawrence, and the growth of eastern city centers such as Granby.  these patterns is on par with the results of the profiling of the municipalities described above, and illustrated in figure \ref{fig:maptrans}). 
+The results of the Business as Usual scenario (BAU), gives an idea of what the region could look like in 2100, if the same rate of urbanization, agricultural expansion and deforestation remain on par with the rates of 1990-2010. The projected land use at the 2100 horizon, as can be seen in \ref{fig:BAU_compare}, shows that most of the small remaining forest patches among the agricultural matrix have been replaced by agriculture, and that most of the urban centres have grown, leading to deforestation even in bigger patches surrounding urban zones. The two trends in terms of development are the expansion of the cities on the south shore of the Saint Lawrence, and the growth of eastern city centres such as Granby.  these patterns is on par with the results of the profiling of the municipalities described above, and illustrated in figure \ref{fig:maptrans}). 
 
-In the case of the Reforestation (R) scenario, which allows urban land to continue to increase following the 1990-2010 trend, but also enforces that as much forest is replanted, we see a decrease in agricultural land of about x\% more in comparison of in the business as usual scenario, necessary to compensate for the increase in forest. As we can see in figure \ref{fig:Ref_compare}, [...].\\ %TODO Describe observed spatial pattern here
+In the the Reforestation (R) scenario, urban land is allowed to continue to increase following the 1990-2010 trend, but about as much forest is replanted at every time step. This comes to the cost of agricultural land, for which we see a decrease of about $14.7\%$ (in average), in comparison of the stagnation that is observed in the BAU scenario. This loss is necessary to compensate for the increase in forest  and urban land (see \ref{fig:bar_both} for a detailed break down in the form of a bar chart). Under this scenario, we observe similar urbanization patterns, and some forest patches on the south shore of the saint Lawrence cannot not salvaged. However, many smaller forest patches are conserved and some forested areas grow to surround urban areas (see \ref{fig:Ref_compare}).
+
+Changes to the make up of different forest types only differs in one major way between the two scenarios. The amount of deciduous forest of medium age increases by $24\%$, in comparison to the decrease in $16.9\%$ in the BAU scenario. This is to be expected from the model parameterization, as it is the only (and unchanging) forest type that is planted in the region under the Reforestation scenario (see figure \ref{fig:bar_both}). \\
 
 \subsection{Connectivity Modelling}
 
 \subsubsection*{Historic run (1990 - 2010)}
 
-While our land use change model only managed to approximate the spatial patterns in land use change, it better managed to replicate the observed change in mean current flow in the region. Figure \ref{fig:flow_historic} illustrate that the model results are close to the observed changes. Whereas we observe a drop in about $1.5$ to $3$ \% in mean flow (depending on the species), the model tends to overestimate the drop, and the difference in estimation range from $0.5$ to $1$ points. However, it is clear that given the distribution of flow values in the region, the mean is not capturing all of the nuances in the model predictions. As it can be seen in the histograms of the flow values in figure \ref{fig:hist_historic}. \\ %TODO here discuss whether the histogram is matched. 
+While our land use change model only managed to approximate the spatial patterns in land use change, it better managed to replicate the observed change in mean current flow in the region. Figure \ref{fig:flow_historic} illustrate that the model results are close to the observed changes. Whereas we observe a drop in about $1.5$ to $3$ \% in mean flow (depending on the species), the model tends to overestimate the drop, and the difference in estimation range from $0.5$ to $1$ points. However, it is clear that given the distribution of flow values in the region, the mean is not capturing all of the nuances in the model predictions. As it can be seen in the histograms of the flow values in figure \ref{fig:hist_historic}, which compares the results of the historic run with the observed flow values, the distribution of flow values is multimodal. We can see that the model managed to approximate pretty well the flow values for most of our species, except for the Wood frog (note that this figure is based on one of the iteration only, but all iterations show a similar pattern). \\
 
 \subsubsection*{Scenario runs (2010 - 2100)}
-% Describe all the figures : one paragraph, one figure. 1:flow, (then mention radar) 2: histograms
 
-\subparagraph*{\textit{Current flow}} We observe a clear difference in changes to current flow between the two scenarios (\textbf{BAU} and \textbf{R}eforestation, with a significant difference in the slopes of the two scenarios, independently of the species that is considered (see \ref{fig:flow_linear_1}). Although both scenarios still predict a trend of decreasing mean flow, not all species react with the same amplitude. Only the Black bear (and, to a lesser extent, the Short-tailed shrew), manage to maintain a similar level of mean flow under the Reforestation scenario. The fact that the width of difference between those two extreme scenarios is larger for those two species possibly indicate more uncertainty with regards to the real future trajectory of the species to the 2100 horizon.
+\vspace{1em}
+
+\subparagraph*{\textit{Current flow}} We see a clear difference in changes to current flow between the two scenarios (\textbf{BAU} and \textbf{R}eforestation, with a significant difference in the slopes of the two scenarios, independently of the species that is considered (see \ref{fig:flow_linear_1}). Although both scenarios still predict a trend of decreasing mean flow, not all species react with the same amplitude. Only the Black bear (and, to a lesser extent, the Short-tailed shrew), manage to maintain a similar level of mean flow under the Reforestation scenario. The fact that the width of difference between those two extreme scenarios is larger for those two species possibly indicate more uncertainty with regards to the real future trajectory of the species to the 2100 horizon.
 
 A second observation can be made about the impact of climate change on the species' response. For both the Black bear and the Wood frog, climate change seems to have no impact on their response. The short-tailed shrew and the Reb-back salamander both seem to experience less losses in scenarios with more intense warming - this was to be expected given their preference for deciduous and mixed forest over coniferous forest. Finally, as expected, the most extreme variation in responses is to be found in the American marten. Interestingly, a Baseline scenario improves the outcome over an Historic scenario for this species. However, the RCP8.5 scenario brings about a significantly lower average mean flow, regardless of the scenario considered (see \ref{fig:flow_radar_1} for a radar representation of outcomes from figure \ref{fig:flow_linear_1}).
 
@@ -311,7 +319,18 @@ Finally, while we see that all species reacted linearly to the BAU scenario, we 
 Finally, it is important to remark on the extremely low uncertainty around the line in figure \ref{fig:flow_linear_1}, indicating  all 10 iterations in our model behaved similarly and lead to extremely low variability in terms of change in mean flow.
   
 \vspace{1em}
-\subparagraph*{\textit{Histograms}} [...]\\
+
+\subparagraph*{\textit{Flow distributions}} Due to the multimodal distributions of flow values, it is important to go beyond looking at mean values and visualize  the effect on the histograms of flow values (see figure \ref{fig:hist_1}). We can see that species usually have a trimodal distribution of high, medium and low flow values (American marten displays a more compact distribution with lower variance). Each of the two scenario has a different effects on the distribution of those values
+
+Under the BAU scenarios, it can be see that high flow values are being eroded into low flow values (and to a lesser extent, medium flow values), signifying the replacement of very high quality pixels for connectivity into very low quality pixels. We can therefore label the effects of the BAU scenarios of "directional", in reference to the shift observed in the distribution of a trait in directional selection \citep{haldane_measurement_1954}. On the other hand, in the reforestation scenario, high quality pixels are not being eroded (or are being matched by reforestation), but pixels of medium quality are being replaced by pixels of low quality. We can therefore label the effects of this scenario as "disruptive", in reference to the shift observed in a trait under disruptive selection \citep{haldane_measurement_1954}. Finally, we can mention that climate does not seem to impact changes to the distribution of values noticeably.\\ 
+
+\vspace{1em}
+
+\subparagraph*{\textit{Feature detection}} The results of the feature detection analysis seems to carry similar trends as what is observed for the changes in flow values. As in the mean flow analysis, we see a continual decrease in the number of features detected across all species and scenarios, excepted for the Black Bear for which a small initial decrease seems to stabilize around $10\%$ under the BAU scenario (see \ref{fig:surf_linear_1} and \ref{fig:surf_radar_1}). An opposite pattern to that of flow values is displayed: a much stronger decrease in the number of features is observed under the reforestation scenario than under the BAU scenario.
+
+The impact of climate varies depending on the species considered. For the Black bear and the Wood frog, we see no noticeable differences between the different climate scenarios. However, the responses of the Short-tailed shrew, the American Marten and the Red-back salamander to climate change display apparent differences. The pattern that emerges is that both the baseline and RCP 8.5 scenarios lead to a more important decrease in the number of features detected, with little noticeable differences between them, except for the American Marten.
+
+Finally, it is interesting to remark that, similarly to for the mean  current flow, the width of difference between the two extreme scenarios is smaller for the marten than for the other species, possibly indicating more uncertainty with regards to the real future trajectory of those species to the 2100 horizon.\\ 
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Discussion}
@@ -500,6 +519,13 @@ Urbanisation & $0.784$ & $0.287$ & $0.618 \pm 0.001$ & $0.102 \pm 0.001$ \\ \hli
  \label{fig:Ref_compare}
 \end{figure}
 
+\begin{figure}[h!]
+\makebox[\textwidth]{
+  \includegraphics[width=\textwidth]{figures/bar_both.png}
+}
+ \caption{Comparison land use class frequencies in 2010, and 2100 for both the BAU and Reforestation scenarios.}
+ \label{fig:bar_both}
+\end{figure}
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
 % Histogram historic
@@ -508,7 +534,7 @@ Urbanisation & $0.784$ & $0.287$ & $0.618 \pm 0.001$ & $0.102 \pm 0.001$ \\ \hli
 \makebox[\textwidth]{
   \includegraphics[width=\textwidth]{figures/original_hists.png}
 }
- \caption{Histograms of flow values change between 1990 and 2010.}
+ \caption{Histograms of flow values for the year 2010 comparing the historic model run with observations.}
  \label{fig:hist_historic}
 \end{figure}
 

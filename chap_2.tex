@@ -126,7 +126,9 @@ The three modified conservation and land use change scenarios are therefore:
 
 In order to be able to compare the results of these new scenarios with those developed in Chapter 1, we conducted the same connectivity analyses using the Circuitscape software. The software “borrows algorithms from electronic circuit theory to predict connectivity in heterogeneous landscapes''. It is a free and open software under MIT license developed originally in Python, and now in its 5th version, in Julia \citep{circuitjulia}.
 
-For each of the maps produced in the suitability analysis, Circuitscape was run in two directions (“wall to wall” run, \cite{mcrae_conserving_2016}): east to west and north to south. This method allowed us to model omnidirectional animal movements, and required that we added the resulting North/South and East/West flow map. The results for each map were therefore added to produce a final set of flow maps for analysis. From these flow maps, we extracted the mean flow for each of the municipalities and for the entire flow map. \\
+For each of the maps produced in the suitability analysis, Circuitscape was run in two directions (“wall to wall” run, \cite{mcrae_conserving_2016}): east to west and north to south. This method allowed us to model omnidirectional animal movements, and required that we added the resulting North/South and East/West flow map. The results for each map were therefore added to produce a final set of flow maps for analysis. From these flow maps, we extracted the mean flow for each of the municipalities and for the entire flow map. 
+
+In addition, similarly to in Chapter 1 we extracted the distribution (logged) of pixel flow values under the form of histograms. We also ran the SURF analysis in the same way and counted up the number detected feature for each surface, in order to derive a measure of flow complexity.\\
 
 \section{Results}
 
