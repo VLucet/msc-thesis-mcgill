@@ -67,7 +67,7 @@ We can therefore derive different predictions as to how connectivity will be aff
 
 \section{Methods}
 
-Our workflow is divided into two major steps: land use change modeling and connectivity modeling. Two workflow figures describe the steps and methods involved (figures \ref{fig:workflow1} and \ref{fig:workflow2}). \\
+Our workflow is divided into two major steps: land use change modeling and connectivity modeling. Two workflow figures describe the steps and methods involved (figure \ref{fig:workflow1} and \ref{fig:workflow2}). \\
 
 \subsubsection*{\textit{Software tools and reproducibility}}
 
@@ -88,7 +88,7 @@ The two steps framework we just outlined allows us to combine the power of marko
 
 \subsubsection{The RF-CA modelling framework}
 
-Our choice of statistical framework was done considering at least three factors: computing time, prediction power and capacity to deal with spatial processes. Computing time is an important factor because fitting models to large datasets can be time consuming. Capacity for dealing with spatial processes varies across methods. Finally, statistical frameworks sit along a continuum that emphasises more or less inference and prediction. A Bayesian model will be more easily thought of as a tool for statistical inference, whereas a neural network will be used more with predictive power in mind. 
+Our choice of statistical framework was done considering at least three factors: computing time, prediction power and capacity to deal with spatial processes. Computing time is an important factor because fitting models to large datasets can be time consuming. Capacity for dealing with spatial processes varies across methods. Finally, statistical frameworks sit along a continuum that emphasises more or less inference and prediction. A Bayesian model will be more easily thought of as a tool for statistical inference, whereas a neural network will be used more with predictive power in mind.
 
 We chose Random Forests (RF) as a statistical framework. RFs are a “tree-based machine learning algorithm that generates a “forest” of randomized independent to each other and identically distributed decision trees”. RFs can be easily “grown’ in parallel, which reduces computation time. RFs possess a strong predictive power, but can still provide metrics of variable importance, providing an interesting balance between inference and predictive power.
 
@@ -145,9 +145,9 @@ The RF model was calibrated on a training partition (70\% of the down-sampled da
 
 There are a number of ways to evaluate model performance in the context of land use change predictions. We used three different approaches:
 \begin{itemize}
- \item We report the $R^{2}$ resulting from the random forest model, as well as variable importance (evaluated as gini impurity score).
- \item We used a ROC curve with Area Under the Curve (AUC) to compare true observed change with the predicted probabilities of transition. This method is widely used in land use change modeling. %TODO add ref (ANDY)
- \item We used a Conventional Cross Validation (CCV) method for the reporting of AUC values, with 10 folds, for which we also produce a measure of AUC with ROC curves.\\
+\item We report the $R^{2}$ resulting from the random forest model, as well as variable importance (evaluated as gini impurity score).
+\item We used a ROC curve with Area Under the Curve (AUC) to compare true observed change with the predicted probabilities of transition. This method is widely used in land use change modeling. %TODO add ref (ANDY)
+\item We used a Conventional Cross Validation (CCV) method for the reporting of AUC values, with 10 folds, for which we also produce a measure of AUC with ROC curves.\\
 \end{itemize}
 
 \subsubsection*{ST-Sim}
@@ -166,7 +166,7 @@ The model allows for 4 groups of transitions:
 The model takes in 3 different strata. A stratum in ST-Sim refers to a subset of the entire landscape being considered for analysis. Strata are typically used to divide the overall landscape into regions or zones, each of which can have different model parameters specified. The three stratum are:
 \begin{itemize}
 \item{Primary stratum:} delineates Montérégie from the  surrounding buffer and highlights protected areas.
-\item{Secondary stratum:} delineates municipalities of the region, to allow to set targets specific to each municipality. 
+\item{Secondary stratum:} delineates municipalities of the region, to allow to set targets specific to each municipality.
 \item{Tertiary stratum:} delineates LANDIS land types, to allow to set transition multipliers for forest types that match the LANDIS simulations. \\
 \end{itemize}
 
@@ -232,7 +232,7 @@ Habitat suitability analysis consists in reclassifying land use data into a resi
 \item Among the suitable patches, calculate their size.
 \item Classify \textbf{possibly suitable} patches into \textbf{fully suitable} patches or \textbf{too small} patches based on their size, using the values provided by \citeauthor{rayfield_priorisation_2018} (see table \ref{tab:patch_size}).
 \item Reclassify patches into resistance, once again following the guidelines in \citeauthor{rayfield_priorisation_2018}'s supplementary tables. See table \ref{tab:hab_or_not} for the reclassification key.
-\item Patch the re-classified non-forest map with the re-classified patches map.  
+\item Patch the re-classified non-forest map with the re-classified patches map. 
 \end{enumerate}
 
 Although these steps build on the work of \cite{albert_applying_2017} and \cite{rayfield_priorisation_2018}, we apply a simpler habitat suitability modeling workflow. There are a number of reasons for why we were not able to apply the exact same workflow as  in \citeauthor{rayfield_priorisation_2018}. First, the resolution of the land use change data differs: we used a 90m resolution versus a 30m resolution for \citeauthor{rayfield_priorisation_2018}. This has implications for the minimum patch size required for the two species (\textit{Blarina} and \textit{Plethodon}) which at the resolution of 90m becomes impossible to differentiate. In addition, we did not include a range of variables that were used in \citeauthor{rayfield_priorisation_2018}: forest density, soil drainage, distance from minor versus major roads, distance from wetlands, etc.\\
@@ -247,11 +247,11 @@ For each of the maps produced in the suitability analysis, Circuitscape was run 
 
 \subsubsection*{Flow feature and pinch point detection}
 
-In an attempt to go beyond the simple analysis of current flow value, we aimed at reproducing the workflow for pinch point analysis laid out in \cite{pelletier_forest_2017}. In their analysis of connectivity at the scale of Canada, using Circuitscape \citeauthor{pelletier_forest_2017} used the SURF alogorithm (Speedep Up Robust Features) to detect narrow regions of high contrast in the flow surface (or "pinch points", as described in \cite{mcrae_using_2008}). SURF is a computer vision algorithm used to reliably detect and match features in images, regardless of their orientation (see \cite{leonardis_surf_2006} for an in-depth description of the algorithm). We attempted to reproduce the results of \citeauthor{pelletier_forest_2017}, although no code was available. We use the OpenCV4 python Library implementation of the SURF software.
+In an attempt to go beyond the simple analysis of current flow value, we reproduced the workflow for pinch point analysis laid out in \cite{pelletier_forest_2017}. In their analysis of connectivity at the scale of Canada, using Circuitscape \citeauthor{pelletier_forest_2017} used the SURF algorithm (Speedep Up Robust Features) to detect narrow regions of high contrast in the flow surface (or "pinch points", as described in \cite{mcrae_using_2008}). SURF is a computer vision algorithm used to reliably detect and match features in images, regardless of their orientation (see \cite{leonardis_surf_2006} for an in-depth description of the algorithm). We attempted to reproduce the results of \citeauthor{pelletier_forest_2017}, although no code was publically available. We use the OpenCV4 python Library implementation of the SURF software.
 
-In order to get to a certain level of reliability in the results, it was found that it was important to equalize the histograms of pixel flow values. But even with this helpful modification to the flow surfaces, it was difficult to accurately identify pinch points in images. However, we think that this step still served to identify and detect relevant flow features in the images. In their implementation of the method, \citeauthor{pelletier_forest_2017} mention that SURf could possibly be able to serve as a measure of "flow complexity". Therefore, we hope this step of the analysis can serve as a way to measure the changes in complexity of the flow that are brought under different scenarios. We recognize the limitations of this method and want to at least provide an interesting use case for the application of computer vision methods to connectivity analyses. 
+In order to get to a certain level of reliability in the results across iterations, it was found that it was important to equalize the histograms of pixel flow values. With this modification, we allow for areas of lower local contrast to gain a higher contrast. This is achieved by taking most frequent intensity values and spreading them out. This method usually increases the global contrast of images \citep{garg_comparative_2017}. But even with this helpful modification to the flow surfaces, it was difficult to accurately identify pinch points in the images. However, the method still served to identify and detect relevant flow features in the images. In their implementation of the method, \citeauthor{pelletier_forest_2017} mention that SURF could potentially be used to measure of "flow complexity". Therefore, we hope this step of the analysis can serve as a way to measure the changes in complexity of the flow that arise under different scenarios. We recognize the limitations of this method at this stage but it does provide an interesting use case for the application of computer vision methods to the interpretation of mapped results from connectivity analyses.
 
-Following the advice in \citeauthor{pelletier_forest_2017}, we ran SURF for each of our flow surfaces and counted up the number of features identified, using it as a measure of flow complexity. Some of those features include identified pinch points. As mentioned by the authors, there exists no guidelines to parameterize SURF for pinch-point detection. We decided on our parameters by testing multiple values and visually assessing the results. The parameters used for the SURF analysis can be found in table \ref{tab:surf}.\\
+Following the advice in \citeauthor{pelletier_forest_2017}, we ran SURF for each of our flow surfaces and counted up the number of features identified, using it as a measure of flow complexity. Some of those features include identified pinch points. There exists no guidelines to parameterize SURF for pinch-point detection. We decided on our parameters by testing multiple values and visually assessing the results. The parameters used for the SURF analysis can be found in table \ref{tab:surf}.\\
 
 \section{Results}
 
