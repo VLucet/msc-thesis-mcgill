@@ -138,7 +138,7 @@ In addition, similarly to in Chapter 1 we extracted the distribution (logged) of
 
 All tables were able to quickly build good consensus as to which forested cores was to be linked in priority. The participants at regional (figure \ref{fig:reg_AC}) and transversal (figure \ref{fig:trans_AC}) tables, identified redundant groups of forest patches. Because transversal tables covered the whole region, they often identified cores that engulfed the cores identified by the regional table, giving us an idea of what could constitute regional versus sub-regional conservation priorities.
 
-Among the cores identified, a lot of the currently protected areas in the region were circled, for example the protected areas of the Green Mountains in the MRC of Brome-Missisquoi, or parts of the Monteregian Hills such as the Mount Saint-Hilaire. %TODO maybe calculating the exact % of overlap would be worth it here?
+Among the cores identified, a lot of the currently protected areas in the region were circled, for example the protected areas of the Green Mountains in the MRC of Brome-Missisquoi, or parts of the Monteregian Hills such as the Mount Saint-Hilaire.  \\ %TODO maybe calculating the exact % of overlap would be worth it here?
 
 \subsubsection{Obstacles and opportunities}
 
@@ -180,15 +180,21 @@ Although the two conservation scenarios that include reforestation do not differ
 
 \vspace{1em}
 
-\subparagraph*{\textit{Current flow}} 
+\subparagraph*{\textit{Current flow}} The three conservation scenarios impacted the mean flow values for our five species differently, but we can derive a few common patterns from figures \ref{fig:flow_linear_2} (linar graph) and {\ref{fig:flow_radar_2} (radar graph). In comparison to the species BAU scenario (for which the responses are described in Chapter 1), we see that the conservation scenarios usually manage to slow the decrease in mean flow. As in chapter 1, only the Black bear (\textit{Ursus americanus}) - and, to some extent, the Short-tailed shrew (\textit{Blarina brevicauda}) - manage to maintain a similar level of mean flow under the conservation scenarios that include reforestation.
+
+The smallest departure from the outcome predicted by the BAU scenario is observed in the BAU-Corr scenario (protection of identified areas). The outcome of mean flow is consistently better than for the BAU, but always worse than the two other conservation scenario, except under RCP 8.5 climate for the American marten, for which the outcome is on par with BAU scenario under baseline climate.  Similarly to chapter 1, we see that some species's response is more linear than others, but in general all species under all scenarios (except for the BAU scenario) show some curving in their response. it is important to note that the conservation of areas and links of importance is only triggered in 2020  - not at the start of the simulation in 2010 - which could contribute to the curving by providing a point of inflection in the response.
+
+We can note the variations on which of the two reforestation scenario is most effective at curbing the decrease in mean flow, which tends to depends on the climate scenario as well for some species. For the Wood frog , random reforestation perform better than targeted reforestation, invariant on climate. Same pattern for the Redbacked Salamander, but for it warming scenarios are consistently better and lead to less loss in mean flow. For the back bear, the two reforestation scenarios ends on a par in 2100 (despite some early divergence), invariant on climate. The flow values for the short-tailed shrew also do better under the random reforestation scenario, and displays larger differences between historic and warming scenarios. Finally, the most complex patterns are observed for the American marten.  Although it also seem to do better under random reforestation,  the response varies on climate and the response curves are staggered in such a way that targeted reforestation could under baseline climate predict higher mean flow than random reforestation under RCP 8.5. Similarly, the BAU scenario under baseline climate predicts higher flow values than the BAU-Corr scenario under RCP 8.5. This highlights an apparent non-linear response to climate from the marten, for which baseline climate seems worse than RCP 8.5 but better than historic.
 
 \vspace{1em}
 
-\subparagraph*{\textit{Flow distributions}}
+\subparagraph*{\textit{Flow distributions}} In chapter 1, we explained the importance of looking beyond the mean flow values and searching for patterns in how the distribution of flow values change. We also characterized two different effects on those distributions: a "directional" effect, which acted to shift high flow pixel toward lower flow intensities, and a "polarizing" effect, which pushed middle level values toward low values, with small to no effect on high value pixels. 
+
+In the conservation scenarios of this chapter we see that the BAU-Corr scenario has a clear directional effect across all species' histograms (see figure \ref{fig:hist_2}) toward smaller flow values, whereas the other two scenario which include reforestation have a polirizing effect, similarly to in Chapter 1. In the case of the Black bear, we even see a directional shift toward more positive values.
 
 \vspace{1em}
 
-\subparagraph*{\textit{Feature detection}} 
+\subparagraph*{\textit{Feature detection}} TBC.\\
 
 \section{Discussion}
 
@@ -265,7 +271,7 @@ Although the two conservation scenarios that include reforestation do not differ
 \clearpage
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------
-% Flow
+% Flow radar all moved to appendix
 
 % Linear
 \begin{figure}[h!]
@@ -283,15 +289,6 @@ Although the two conservation scenarios that include reforestation do not differ
 }
  \caption{Change in mean flow (in \% of the the 2010 flow) between 2010 and 2100, contrasting BAU scenario (solid line) with conservation scenarios.}
  \label{fig:flow_radar_2}
-\end{figure}
-
-% Radar All
-\begin{figure}[h!]
-\makebox[\textwidth]{
-  \includegraphics[width=\textwidth]{figures/radar_ggradar_both.png}
-}
- \caption{Change in mean flow (in \% of the the 2010 flow) between 2010 and 2100, contrasting BAU scenario (solid line) with both other land use change and conservation scenarios.}
- \label{fig:flow_radar_both}
 \end{figure}
 
 % Histograms
