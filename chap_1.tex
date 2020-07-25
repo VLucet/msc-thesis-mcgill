@@ -77,7 +77,7 @@ We used ST-Sim version 2.2.10, scripted in R with the help of the rsyncrosim pac
 
 A note should be added on data availability and reproducibility. A few datasets were not obtained from open sources. These datasets are marked in red in figure \ref{fig:workflow1}. The Canadian census data was obtained through the University of Toronto's CHASS (Computing in the Humanities and Social Sciences) Data Centre, which requires institutional access. This makes the Random Forest analysis not reproducible. In addition, data on protected areas in Montérégie was obtained  via the RMN (Réseaux des milieux naturels protégés du Québec) under a limited license, which makes the Land use change modeling via ST-Sim not fully reproducible. However, the results of those steps are made open, and the subsequent steps (habitat modeling, connectivity analysis) are reproducible via the use of various software ( i.e. docker, renv, and more). Please consult the appendix on reproducibility for the steps to take to reproduce those results. \\ %TODO write appendix on reproducibility
 
-\subsection{Land Use Change Modelling}
+\subsection{Land use change modelling}
 Land use change modelling is a prolific subfield of land systems science which has spurred a broad diversity of approaches \citep{dang_review_2016, noszczyk_review_2018}. Beyond the many methods published, there is a large number of applications and software tools available for research - although their openness and accessibility varies \citep{moulds_open_2015}. Papers that compare frameworks and results across tools and methods are rare \citep{pontius_comparing_2008, pontius_comparison_2005, sun_comparison_2018}. Although a full review of land use change modelling methods is beyond the scope of this chapter and this thesis, I will introduce the key concepts.
 
 Land use change models can be classified according to their level of focus on land use change drivers, from phenomenological (“top down”) to more mechanistic approaches (“bottom up”). Given the simplicity and ease of use of phenomenological models, and the extra demands of mechanistic models, most approaches to land use change modelling fall between these two extremes, and a certain number of “hybrid” approaches have been developed \citep{sun_comparison_2018, jokar_arsanjani_integration_2013}. The approach we take in this chapter is not strictly phenomenological and introduces some mechanistic understanding of land use change, and can therefore be qualified as a hybrid method.
@@ -215,11 +215,11 @@ The final list of scenarios is the following:
 
 Connectivity modeling is similar to land use change modeling inasmuch as the diversity of methods at the researcher’s disposal is large \citep{calabrese_comparison_2004}. As mentioned in the intro, we implemented an analysis of Potential Functional Connectivity, or PFC. A typical PFC modeling workflow can be broken down to 3 steps: species selection, Habitat suitability modeling and connectivity analysis. The three steps are described below, and the methodology partially follows the methodology of Rayfield et al. This part of the methods is summarized in figure \ref{fig:workflow2}.\\
 
-\subsubsection{Species Selection}
+\subsubsection{Species selection}
 
 Species selection is unchanged from Rayfield et al. The five species chosen are presented in the appendix table \ref{tab:species}. It was demonstrated that modeling the connectivity needs of those 5 species was equivalent to modeling the needs of 14 species in the study region \citep{meurant_selecting_2018, albert_applying_2017}\\
 
-\subsubsection{Habitat Suitability}
+\subsubsection{Habitat suitability}
 
 Habitat suitability analysis consists in reclassifying land use data into a resistance surface which is then used to model connectivity. For each of the maps obtained from the land use change analysis (for each of the timestep in every iteration and for each of the 5 species), we followed the following steps to reclass land use into resistance:
 \begin{enumerate}
@@ -278,7 +278,7 @@ The clustering and subsequent ordination of land use change profiles showed that
 These results show marked regional trends with a front line of fragmentation and deforestation on both sides of the region and along the Richelieu river. \\ % (Fig. \ref{fig:map}).
 \end{itemize}
 
-\subsection{Random forest Models}
+\subsection{Random forest models}
 
 \subsubsection{Variable importance}
 
@@ -288,7 +288,7 @@ As previously mentioned, the primary goal of this chapter is not to draw strong 
 
 The reported adjusted  $R^{2}$ for our urbanization and agricultural expansion random forest models are $0.57$ and $0.56$ respectively. The values for AUC are comparatively higher: varying between $0.841$ and $0.931$ (depending on the validation set) for Agricultural Expansion and between $0.921$ and $0.939$ for Urbanization (see summary table \ref{tab:R_squares_AUC} and see figures \ref{fig:roc_agex} and \ref{fig:roc_urb} for the spatial validation ROC curves). The resampled AUC (10-folds CCV) is equally as high with means of $0.929 \pm .002$ and $0.938 \pm 0.002$ respectively (see figure \ref{fig:roc_rs} for the 10-fold ROC curves).\\
 
-\subsection{Land Use Change Model}
+\subsection{Land use change model}
 
 \subsubsection*{Historic run (1990 - 2010)}
 
@@ -302,7 +302,7 @@ In the Reforestation (R) scenario, urban land is allowed to continue to increase
 
 Changes to the makeup of different forest types only differ in one major way between the two scenarios: The amount of deciduous forest of medium age increases by $24\%$, in comparison to the decrease by $16.9\%$ in the BAU scenario. This is to be expected from the model parameterization, as it is the only (and unchanging) forest type that is replanted in the region under the Reforestation scenario (see figure \ref{fig:bar_both}). \\
 
-\subsection{Connectivity Modelling}
+\subsection{Connectivity model}
 
 \subsubsection*{Historic run (1990 - 2010)}
 
