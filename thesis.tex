@@ -21,12 +21,13 @@
   \usepackage[
     style=authoryear,
     maxnames = 2,
-    backend=bibtex,
-    natbib=true
+    backend=biber,
+    natbib=true %, 
+    %refsection=chapter
   ]{biblatex}
 
-\addglobalbib{mcgilletd}
-\addglobalbib{software}
+\addbibresource{mcgilletd.bib}
+\addbibresource{software.bib}
 
 % remove section numbering without using section* (keeps in TOC)
 \setcounter{secnumdepth}{4}
@@ -259,8 +260,7 @@ We can therefore derive different predictions as to how connectivity will be aff
 % \include{discussion}
 \SetLinkName{{General Discussion \& Conclusion}}%
 % In case of a manuscript-based thesis the comprehensive discussion should encompass all of the chapters of the thesis and should not be a repetition of the individual chapters.
-\SetLinkText{To be completed.
-}%
+\SetLinkText{TEST ---- A classic spatially defined land use change model is what can be called a “state change model”, where the landscape is divided in a grid and each grid element (pixel) is assigned a state that changes in discrete time \citep{frazer_model_1984}. The difficulty of land use change modelling resides in setting the transition probabilities that define the probability of a pixel transitioning to another state (or to remain as is), given its current state and given a set of conditions both intrinsic and extrinsic to that pixel. --- TEST}%
 \Link%
 
 % Appendix
@@ -273,6 +273,6 @@ We can therefore derive different predictions as to how connectivity will be aff
 %\ETDAppendix{References}{
 %\printbibliography
 %}
-\printbibliography[heading=bibintoc, title={Bibliography \hspace{1em}}]
+\printbibliography[heading=bibintoc, section=0, title={General Bibliography \hspace{1em}}]
 
 \end{document}
