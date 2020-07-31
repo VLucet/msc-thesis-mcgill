@@ -21,10 +21,12 @@
   \usepackage[
     style=authoryear,
     maxnames = 2,
-    backend=bibtex,natbib
+    backend=bibtex,
+    natbib=true
   ]{biblatex}
-\addbibresource{mcgilletd}
-\addbibresource{software}
+
+\addglobalbib{mcgilletd}
+\addglobalbib{software}
 
 % remove section numbering without using section* (keeps in TOC)
 \setcounter{secnumdepth}{4}
@@ -74,7 +76,7 @@
 \SetDepartment{Department of Biology\vspace{-2.1cm}}%
 \SetUniversity{McGill University}%
 \SetUniversityAddr{Montreal, Quebec}%
-\SetThesisDate{2020-08-15}%
+\SetThesisDate{August 2020}%
 \SetRequirements{A thesis submitted to McGill University in partial fulfillment \\of the requirements of the degree of Master of Science}%
 
 \SetCopyright{\textcopyright Valentin Lucet, 2020 \\ All rights reserved}%
@@ -128,19 +130,11 @@
 }%
 \Acknowledge%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%        Contribution to original knowledge      %% => NOT NEEDED FOR MSC
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\SetContribKnowledgeName{{Contribution to Original Knowledge}}
-%\SetContribKnowledgeText{\lipsum[66]
-%}%
-%\ContribKnowledge%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%       THESIS FORMAT AND STYLE       %% => UNSURE SO FAR
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\SetLinkName{{Thesis Format}}%
-%\SetLinkText{This thesis is written in a manuscript-based format. Throughout I use the Chicago citation style.
+%\SetLinkText{This thesis is written in a manuscript-based format.
 %\\
 %\\
 %\textbf{Chapter 1:} Student, A. Supervisor, B. (2013), My First Chapter Title \textit{Journal of %Ecographic Informatics} 10 (1), 878887.
@@ -277,7 +271,6 @@ We can therefore derive different predictions as to how connectivity will be aff
 \include{appendix_2}
 
 %\ETDAppendix{References}{
-%
 %\printbibliography
 %}
 \printbibliography[heading=bibintoc, title={Bibliography \hspace{1em}}]
